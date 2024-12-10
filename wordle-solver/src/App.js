@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="container my-5">
+    <div className="container my-5 main-page">
       <header className="text-center mb-4">
         <h1>Welcome to My Website</h1>
         <p className="lead">A simple website built with React and Bootstrap</p>
