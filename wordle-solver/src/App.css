@@ -40,3 +40,20 @@
 .read-the-docs {
   color: #888;
 }
+
+.row {
+  height: 16.667%;
+}
+
+.col {
+  border: 1px solid black;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  max-width: 20%;
+}
+
+.main-grid {
+  height: 50vh;
+  width: 30vw;
+  border: 1px solid red;
+}

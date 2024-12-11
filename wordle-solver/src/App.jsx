@@ -3,11 +3,27 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+function initGrid() {
+  return (
+    [...Array(6)].map((_, i) => (
+      <div className="row" key={`row${i}`}>
+        {[...Array(5)].map((_, j) => (
+          <input className="col" type="text" maxLength="1" key={`col${i}${j}`}/>
+        ))}
+      </div>
+    ))
+  );
+}
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <div className="main-grid">
+        {initGrid()}
+      </div>
+
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -17,8 +33,6 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <h1>Hello</h1>
-      <h1>Hello again</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -34,4 +48,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
