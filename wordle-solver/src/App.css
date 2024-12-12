@@ -43,7 +43,17 @@
   color: #888;
 }
 
-.row {
+.main-grid {
+  height: 48vh;
+  width: 20vw;
+  border: 1px solid red;
+  display: grid;
+  margin: auto;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
+}
+
+.grid-row {
   display: flex;
   /*
   max-width: 100%;
@@ -51,17 +61,111 @@
   */
 }
 
-.col {
+.grid-col {
   border: 1px solid grey;
   margin-right: 4px;
   margin-bottom: 4px;
+  font-size: 2.5em;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  caret-color: transparent;
 }
 
-.main-grid {
-  height: 48vh;
-  width: 20vw;
+.grid-col:focus {
+  outline: none;
+}
+
+.grid-col::selection {
+  background-color: transparent;
+}
+
+.keyboard-grid {
+  height: 22vh;
+  width: 34vw;
   border: 1px solid red;
   display: grid;
   margin: auto;
+}
+
+.keyboard-row {
+  display: flex;
+  height: 7vh;
+  width: 14vw;
+  border: 1px solid red;
+  margin: auto;
+  justify-items: center;
+  justify-content: center;
+  /*
+  max-width: 100%;
+  margin-left: 0;
+  */
+}
+
+.keyboard-col {
+  border: 1px solid black;
+  border-radius: 6px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  justify-content: center;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.horizontal-list {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  border: 1px solid red;
+  height: 7vh;
+  width: 34vw;
+  margin: auto;
+  margin-bottom: 4px;
+}
+
+.horizontal-list li {
+  margin-right: 4px; 
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 9%;
+  background-color: grey;
+}
+
+.key-label {
+  color: white;
+  font-size: 2.5em;
+  font-weight: bold;
+  justify-content: center;
+  text-align: center;
+}
+
+.enter-key-label {
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px; 
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 13%;
+  background-color: grey;
+}
+
+.del-key-label {
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4px; 
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 13%;
+  background-color: grey;
 }
