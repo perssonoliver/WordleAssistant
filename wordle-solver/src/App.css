@@ -108,6 +108,7 @@
   font-weight: bold;
   justify-content: center;
   text-align: center;
+  user-select: none;
 }
 
 .enter-key-label {
@@ -122,6 +123,7 @@
   border-radius: 6px;
   width: 13%;
   background-color: rgb(88, 88, 88);
+  user-select: none;
 }
 
 .del-key-label {
@@ -136,4 +138,5 @@
   border-radius: 6px;
   width: 13%;
   background-color: rgb(88, 88, 88);
+  user-select: none;
 }
