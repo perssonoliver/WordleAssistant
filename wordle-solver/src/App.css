@@ -5,6 +5,10 @@
   padding: 2rem;
   text-align: center;
   background-color: black;
+
+  --select-grey: rgb(59, 59, 59);
+  --select-yellow: rgb(204, 175, 13);
+  --select-green: rgb(34, 150, 23);
 }
 
 .logo {
@@ -43,100 +47,11 @@
   color: #888;
 }
 
-.main-grid {
+.container {
+  display: flex;
+  flex-direction: column; /* Align elements vertically */
+  align-items: flex-end; /* Align elements to the right horizontally */
+  justify-content: center; /* Center elements vertically */
   height: 48vh;
-  width: 20vw;
-  border: 1px solid red;
-  display: grid;
-  margin: auto;
-  margin-top: 6vh;
-  margin-bottom: 6vh;
-}
-
-.grid-row {
-  display: flex;
-  /*
-  max-width: 100%;
-  margin-left: 0;
-  */
-}
-
-.grid-col {
-  border: 2px solid rgb(59, 59, 59);
-  margin-right: 6px;
-  margin-bottom: 6px;
-  font-size: 2.5em;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  flex-grow: 1;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  caret-color: transparent;
-}
-
-.grid-col:focus {
-  outline: none;
-}
-
-.grid-col::selection {
-  background-color: transparent;
-}
-
-.horizontal-list {
-  display: flex;
-  list-style: none;
-  justify-content: center;
-  border: 1px solid red;
-  height: 7vh;
-  width: 34vw;
-  margin: auto;
-  margin-bottom: 6px;
-}
-
-.horizontal-list li {
-  margin-right: 6px; 
-  border: 1px solid black;
-  border-radius: 6px;
-  width: 9%;
-  background-color: rgb(88, 88, 88);
-}
-
-.key-label {
-  color: white;
-  font-size: 2.5em;
-  font-weight: bold;
-  justify-content: center;
-  text-align: center;
-  user-select: none;
-}
-
-.enter-key-label {
-  color: white;
-  font-size: 1.3em;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 6px; 
-  border: 1px solid black;
-  border-radius: 6px;
-  width: 13%;
-  background-color: rgb(88, 88, 88);
-  user-select: none;
-}
-
-.del-key-label {
-  color: white;
-  font-size: 1.3em;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 6px; 
-  border: 1px solid black;
-  border-radius: 6px;
-  width: 13%;
-  background-color: rgb(88, 88, 88);
-  user-select: none;
+  border: 1px solid green;
 }

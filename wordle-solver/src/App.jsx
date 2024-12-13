@@ -2,107 +2,39 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
-const keyboard = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
-
-function MainGrid() {
-  return (
-    <div className="main-grid">
-        {[...Array(6)].map((_, i) => (
-        <div className="row grid-row" key={`row${i}`}>
-          {[...Array(5)].map((_, j) => (
-            <input 
-            className="col grid-col"  
-              type="text" 
-              maxLength="1" 
-              key={`col${i}${j}`}
-              id={`col${i}${j}`}>
-            </input>
-          ))}
-        </div>
-      ))}
-      </div>
-  );
-}
+import Keyboard from './Keyboard'
+import MainGrid from './MainGrid'
+import WordList from './WordList'
 
 function App() {
   const [row, setRow] = useState(0);
   const [col, setCol] = useState(0);
   const [count, setCount] = useState(0);
-
-  function KeyBoard() {
-    return (
-      <div>
-        <div className='horizontal-list'>
-        {keyboard[0].split('').map((_, i) => (
-            <li>
-              <label
-                className='key-label'
-                key={`key_${keyboard[0][i]}`} 
-                id={`key_${keyboard[0][i]}`} 
-                onClick={inputCharacter}>
-                {keyboard[0][i]}
-              </label>
-            </li>
-          ))}
-        </div>
   
-        <div className='horizontal-list'>
-          {keyboard[1].split('').map((_, i) => (
-            <li>
-              <label 
-                className='key-label'
-                key={`key_${keyboard[1][i]}`} 
-                id={`key_${keyboard[1][i]}`} 
-                onClick={inputCharacter}>
-                {keyboard[1][i]}
-              </label>
-            </li>
-          ))}
-        </div>
-  
-        <div className='horizontal-list'>
-            <label 
-              className='enter-key-label'
-              key={'key_ENTER'} 
-              id={'key_ENTER'} 
-              onClick={inputCharacter}>
-              {'ENTER'}
-            </label>
-          {keyboard[2].split('').map((_, i) => (
-            <li>
-              <label 
-                className='key-label'
-                key={`key_${keyboard[2][i]}`} 
-                id={`key_${keyboard[2][i]}`} 
-                onClick={inputCharacter}>
-                {keyboard[2][i]}
-              </label>
-            </li>
-          ))}
-          <label 
-            className='del-key-label'
-            key={'key_DEL'} 
-            id={'key_DEL'} 
-            onClick={inputCharacter}>
-            {'DEL'}
-          </label>
-        </div>
-      </div>
-    );
-  }
-  
-  function inputCharacter(event) {
+  function setBoxCharacter(event) {
     event.preventDefault()
     console.log(event.target.id)
   
     if (event.target.id === 'key_ENTER') {
-      // todo
+      updateWordList()
+      if (row == 5 || col != 5) {
+        return
+      }
+
+      setRow(row + 1)
+      setCol(0)
       return
     } 
   
     if (event.target.id === 'key_DEL') {
-      // todo
+      if (col == 0) {
+        return
+      }
+
+      const box = document.getElementById(`col${row}${col - 1}`)
+      box.value = ''
+      box.blur()
+      setCol(col - 1)
       return
     }
   
@@ -110,22 +42,10 @@ function App() {
     if (col == 5) {
       return
     }
-    const input = document.getElementById(`col${row}${col}`)
-    input.value = char
-    input.blur()
+    const box = document.getElementById(`col${row}${col}`)
+    box.value = char
+    box.blur()
     setCol(col + 1)
-  
-  
-    /* Implement later
-    let char = event.key
-    event.target.value = char.toUpperCase()
-    event.target.blur()
-  
-    const next = event.target.nextElementSibling
-    if (next && next.id[4] != '0') {
-      next.focus()
-    }
-    */
   }
 
   useEffect(() => {
@@ -137,8 +57,12 @@ function App() {
 
   return (
     <>
-      <MainGrid />
-      <KeyBoard />
+      <div className='container'>
+        <MainGrid/>
+        <WordList/>
+      </div>
+
+      <Keyboard setBoxCharacter={setBoxCharacter}/>
 
       <div>
         <a href="https://vite.dev" target="_blank">

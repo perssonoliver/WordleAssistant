@@ -1,0 +1,32 @@
+.main-grid {
+    align-self: center;
+    border: 1px solid red;
+    width: 20vw;
+    height: 100%;
+  }
+  
+  .grid-row {
+    display: flex;
+  }
+  
+  .grid-col {
+    border: 2px solid var(--select-grey);
+    margin-right: 6px;
+    margin-bottom: 6px;
+    font-size: 2.5em;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    caret-color: transparent;
+  }
+  
+  .grid-col:focus {
+    outline: none;
+  }
+  
+  .grid-col::selection {
+    background-color: transparent;
+  }
