@@ -1,5 +1,5 @@
 import React from 'react'
-import './Keyboard.css'
+import './App.css'
 
 const keyboard = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
 

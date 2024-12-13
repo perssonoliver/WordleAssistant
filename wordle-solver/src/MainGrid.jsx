@@ -1,5 +1,5 @@
 import React from 'react';
-import './MainGrid.css';
+import './App.css';
 
 function MainGrid() {
   return (

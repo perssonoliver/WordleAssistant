@@ -49,9 +49,111 @@
 
 .container {
   display: flex;
-  flex-direction: column; /* Align elements vertically */
-  align-items: flex-end; /* Align elements to the right horizontally */
+  align-items: center; /* Align elements to the right horizontally */
   justify-content: center; /* Center elements vertically */
   height: 48vh;
   border: 1px solid green;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  position: relative;
+}
+
+.word-list {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 1px solid red;
+  width: 12vw;
+  max-height: 100%;
+}
+
+.main-grid {
+  border: 1px solid red;
+  width: 20vw;
+  height: 100%;
+}
+
+.grid-row {
+  display: flex;
+  height: 16.6667%;
+}
+
+.grid-col {
+  border: 2px solid var(--select-grey);
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 2.5em;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  caret-color: transparent;
+}
+
+.grid-col:focus {
+  outline: none;
+}
+
+.grid-col::selection {
+  background-color: transparent;
+}
+
+.key-row {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  border: 1px solid red;
+  height: 7vh;
+  width: 34vw;
+  margin: auto;
+  margin-bottom: 6px;
+}
+
+.key-row li {
+  margin-right: 6px; 
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 9%;
+  background-color: rgb(88, 88, 88);
+}
+
+.key-label {
+  color: white;
+  font-size: 2.5em;
+  font-weight: bold;
+  justify-content: center;
+  text-align: center;
+  user-select: none;
+}
+
+.enter-key-label {
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px; 
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 13%;
+  background-color: rgb(88, 88, 88);
+  user-select: none;
+}
+
+.del-key-label {
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px; 
+  border: 1px solid black;
+  border-radius: 6px;
+  width: 13%;
+  background-color: rgb(88, 88, 88);
+  user-select: none;
 }
