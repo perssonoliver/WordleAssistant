@@ -62,9 +62,9 @@
 }
 
 .grid-col {
-  border: 1px solid grey;
-  margin-right: 4px;
-  margin-bottom: 4px;
+  border: 2px solid rgb(59, 59, 59);
+  margin-right: 6px;
+  margin-bottom: 6px;
   font-size: 2.5em;
   font-weight: bold;
   justify-content: center;
@@ -83,38 +83,6 @@
   background-color: transparent;
 }
 
-.keyboard-grid {
-  height: 22vh;
-  width: 34vw;
-  border: 1px solid red;
-  display: grid;
-  margin: auto;
-}
-
-.keyboard-row {
-  display: flex;
-  height: 7vh;
-  width: 14vw;
-  border: 1px solid red;
-  margin: auto;
-  justify-items: center;
-  justify-content: center;
-  /*
-  max-width: 100%;
-  margin-left: 0;
-  */
-}
-
-.keyboard-col {
-  border: 1px solid black;
-  border-radius: 6px;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  font-weight: bold;
-  justify-content: center;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
 .horizontal-list {
   display: flex;
   list-style: none;
@@ -123,15 +91,15 @@
   height: 7vh;
   width: 34vw;
   margin: auto;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .horizontal-list li {
-  margin-right: 4px; 
+  margin-right: 6px; 
   border: 1px solid black;
   border-radius: 6px;
   width: 9%;
-  background-color: grey;
+  background-color: rgb(88, 88, 88);
 }
 
 .key-label {
@@ -149,11 +117,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 4px; 
+  margin-right: 6px; 
   border: 1px solid black;
   border-radius: 6px;
   width: 13%;
-  background-color: grey;
+  background-color: rgb(88, 88, 88);
 }
 
 .del-key-label {
@@ -163,9 +131,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 4px; 
+  margin-right: 6px; 
   border: 1px solid black;
   border-radius: 6px;
   width: 13%;
-  background-color: grey;
+  background-color: rgb(88, 88, 88);
 }
