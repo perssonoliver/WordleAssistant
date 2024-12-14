@@ -73,7 +73,6 @@
 }
 
 .main-grid {
-  border: 1px solid red;
   width: 20vw;
   height: 100%;
 }
@@ -109,7 +108,6 @@
   display: flex;
   list-style: none;
   justify-content: center;
-  border: 1px solid red;
   height: 7vh;
   width: 34vw;
   margin: auto;
