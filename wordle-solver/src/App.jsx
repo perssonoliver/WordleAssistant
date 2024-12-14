@@ -5,7 +5,10 @@ import Keyboard from './Keyboard'
 import MainGrid from './MainGrid'
 import WordList from './WordList'
 
-const COLORS = ['rgb(59, 59, 59)', 'rgb(204, 175, 13)', 'rgb(34, 150, 23)']
+const BLACK   = 'rgb(59, 59, 59)'
+const YELLOW  = 'rgb(204, 175, 13)'
+const GREEN   = 'rgb(34, 150, 23)'
+const COLORS = [BLACK, YELLOW, GREEN]
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 let validLetters = initLetters()
@@ -102,16 +105,23 @@ function App() {
   }
 
   function updateWordList() {
-    const rowLetters = [...Array(5)]
+    const rowLetters = {}
     for (let i = 0; i < 5; i++) {
-      rowLetters[i] = document.getElementById(`col${row}${i}`).value
+      rowLetters[i] = {
+        letter: document.getElementById(`col${row}${i}`).value,
+        color: colors[row][i]
+      }
     }
 
     for (let i = 0; i < 5; i++) {
-      if (rowLetters[i] === '') {
-        return
-      }
+      if (rowLetters[i].color === BLACK) {
+        console.log(validLetters[row][i])
+        console.log(rowLetters[i].letter)
+        validLetters[row][i] = validLetters[row][i].replace(rowLetters[i].letter, '')
+      } 
+      // todo: handle yellow and green
     }
+    console.log(validLetters)
 
 
 
