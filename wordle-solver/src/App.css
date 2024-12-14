@@ -52,7 +52,6 @@
   align-items: center; /* Align elements to the right horizontally */
   justify-content: center; /* Center elements vertically */
   height: 48vh;
-  border: 1px solid green;
   margin-top: 3vh;
   margin-bottom: 3vh;
   position: relative;
@@ -62,9 +61,15 @@
   position: absolute;
   right: 0;
   top: 0;
-  border: 1px solid red;
   width: 12vw;
   max-height: 100%;
+  overflow-y: auto;
+}
+
+.list-group li {
+  background-color: black;
+  color: white;
+  border-color: var(--select-grey);
 }
 
 .main-grid {
