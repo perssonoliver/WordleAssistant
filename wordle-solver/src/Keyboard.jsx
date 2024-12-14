@@ -3,7 +3,7 @@ import './App.css'
 
 const keyboard = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
 
-function Keyboard({ setBoxCharacter}) {
+function Keyboard({ setBoxCharacter }) {
     return (
         <div>
         <div className='key-row'>
