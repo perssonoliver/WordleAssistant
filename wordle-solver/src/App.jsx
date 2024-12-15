@@ -292,17 +292,37 @@ function App() {
       return true
     });
     newWords = newWords.filter(word => {
-      for (let i = 0; i < letterFrequencies.length; i++) {
-        if (!containsAtLeast(word, letterFrequencies[i].letter, letterFrequencies[i].atLeast)) {
+      for (const currLetter in letterFrequencies) {
+        if (!containsAtLeast(word, currLetter, letterFrequencies[currLetter].atLeast)) {
           return false
         }
-        if (!containsAtMost(word, letterFrequencies[i].letter, letterFrequencies[i].atMost)) {
+        if (!containsAtMost(word, currLetter, letterFrequencies[currLetter].atMost)) {
           return false
         }
       }
       return true
     });
     wordLists[row + 1] = newWords
+  }
+
+  function containsAtLeast(word, letter, atLeast) {
+    let count = 0
+    for (let i = 0; i < 5; i++) {
+      if (word[i] === letter) {
+        count++
+      }
+    }
+    return count >= atLeast
+  }
+
+  function containsAtMost(word, letter, atMost) {
+    let count = 0
+    for (let i = 0; i < 5; i++) {
+      if (word[i] === letter) {
+        count++
+      }
+    }
+    return count <= atMost
   }
 
   useEffect(() => {
