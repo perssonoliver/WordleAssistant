@@ -99,7 +99,7 @@ function App() {
       return
     }
 
-    const char = event.target.id[4]
+    const char = event.currentTarget.firstElementChild.id[4]
     const box = document.getElementById(`col${row}${col}`)
     box.value = char
     box.blur()
@@ -116,6 +116,7 @@ function App() {
     }
 
     for (let i = 0; i < 5; i++) {
+      console.log('iteration: ', i)
       const currLetter = rowLetters[i].letter
       const currColor = rowLetters[i].color
 
@@ -142,11 +143,8 @@ function App() {
         if (yellowExists) {
           for (let j = row; j < 6; j++) {
             validLetters[j][i] = validLetters[j][i].replace(currLetter, '')
-            break
           }
-        }
-
-        if (greenExists) {
+        } else if (greenExists) {
           for (let j = row; j < 6; j++) {
             for (let k = 0; k < 5; k++) {
               if (greenIndexes.includes(k)) {
@@ -155,12 +153,11 @@ function App() {
               validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
             }
           }
-          break
-        }
-
-        for (let j = row; j < 6; j++) {
-          for (let k = 0; k < 5; k++) {
-            validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
+        } else {
+          for (let j = row; j < 6; j++) {
+            for (let k = 0; k < 5; k++) {
+              validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
+            }
           }
         }
       } else if (rowLetters[i].color === GREEN) {
@@ -168,18 +165,23 @@ function App() {
         for (let j = row; j < 6; j++) {
           validLetters[j][i] = currLetter
         }
+        console.log('setting green: ', validLetters[row][i])
       } else if (rowLetters[i].color === YELLOW) {
         console.log('found yellow')
         for (let j = row; j < 6; j++) {
           validLetters[j][i] = validLetters[row][i].replace(currLetter, '')
         }
+      } else {
+        console.log('found neither black, yellow, nor green')
       }
     }
     console.log(validLetters)
     updateFrequencies(rowLetters)
+    console.log(letterFrequencies)
 
     // Filter the word list and save it in wordLists
-    setWordList(wordLists[row])
+    filterWordList()
+    setWordList(wordLists[row + 1])
 
     /*
     let newWords = [...Array((row + 1) * 2)]
@@ -191,17 +193,17 @@ function App() {
   }
 
   function updateFrequencies(rowLetters) {
-    const letters = Object.values(rowLetters).map(item => item.letter)
+    console.log('updating frequencies')
 
     let duplicates = []
     let temp = []
 
     for (let i = 0; i < 5; i++) {
       const currLetter = rowLetters[i].letter
-      if (singletons.includes(currLetter) && !duplicates.includes(currLetter)) {
+      if (temp.includes(currLetter) && !duplicates.includes(currLetter)) {
         duplicates.push(currLetter)
       } else {
-        singletons.push(currLetter)
+        temp.push(currLetter)
       }
     }
 
@@ -209,6 +211,7 @@ function App() {
 
     // Update singleton letters
     for (let i = 0; i < singletons.length; i++) {
+      console.log('updating singletons: ', singletons[i])
       let currLetter = singletons[i]
       let currColor = ''
       for (let j = 0; j < 5; j++) {
@@ -229,6 +232,7 @@ function App() {
 
     // Update duplicate letters
     for (let i = 0; i < duplicates.length; i++) {
+      console.log('updating duplicates: ', duplicates[0])
       let nbrColored = 0
       let nbrBlack = 0
 
@@ -242,23 +246,63 @@ function App() {
         }
       }
 
-      letterFrequencies[duplicates[i]].atLeast = nbrColored
-      if (nbrBlack > 0) {
-        letterFrequencies[duplicates[i]].atMost = nbrColored
+      const currLetter = duplicates[i]
+      if (!(currLetter in letterFrequencies)) {
+        letterFrequencies[currLetter] = {
+          atLeast: nbrColored,
+          atMost: 5
+        }
       } else {
-        letterFrequencies[duplicates[i]].atMost = 5
+        letterFrequencies[currLetter].atLeast = Math.max(letterFrequencies[currLetter].atLeast, nbrColored)
+      }
+      if (nbrBlack > 0) {
+        letterFrequencies[currLetter].atMost = letterFrequencies[currLetter].atLeast
       }
     }
 
     // Update upper bound of existing letters
-    for (let i = 0; i < letterFrequencies.length; i++) {
-      const currAtLeast = letterFrequencies[ALPHABET[i]].atLeast
+    for (const currLetter in letterFrequencies) {
+      const currAtLeast = letterFrequencies[currLetter].atLeast
       const totalAtLeast = Object
         .values(letterFrequencies)
         .map(item => item.atLeast)
         .reduce((acc, currentValue) => acc + currentValue, 0);
-      letterFrequencies[ALPHABET[i]].atMost = 5 - totalAtLeast - currAtLeast
+      console.log('totalAtLeast: ', totalAtLeast)
+      const newAtMost = 5 - totalAtLeast + currAtLeast
+      let validPositions = 0
+      for (let i = 0; i < 5; i++) {
+        if (validLetters[row][i].includes(currLetter)) {
+          validPositions++
+        }
+      }
+      letterFrequencies[currLetter].atMost = Math.min(newAtMost, 
+                                                    letterFrequencies[currLetter].atMost, 
+                                                    validPositions)
     }
+  }
+
+  function filterWordList() {
+    let newWords = []
+    newWords = wordLists[row].filter(word => {
+      for (let i = 0; i < 5; i++) {
+        if (!validLetters[row][i].includes(word[i])) {
+          return false
+        }
+      } 
+      return true
+    });
+    newWords = newWords.filter(word => {
+      for (let i = 0; i < letterFrequencies.length; i++) {
+        if (!containsAtLeast(word, letterFrequencies[i].letter, letterFrequencies[i].atLeast)) {
+          return false
+        }
+        if (!containsAtMost(word, letterFrequencies[i].letter, letterFrequencies[i].atMost)) {
+          return false
+        }
+      }
+      return true
+    });
+    wordLists[row + 1] = newWords
   }
 
   useEffect(() => {
@@ -266,6 +310,10 @@ function App() {
     if (firstInput) {
       firstInput.focus();
     }
+  }, []);
+
+  useEffect(() => {
+    wordLists[0] = dict
   }, []);
 
   return (
