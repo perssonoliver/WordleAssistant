@@ -5,7 +5,6 @@ import Keyboard from './Keyboard'
 import MainGrid from './MainGrid'
 import WordList from './WordList'
 
-const GREY_HIGHLIGHT = 'rgb(90, 90, 90)'
 const BLACK   = 'rgb(59, 59, 59)'
 const YELLOW  = 'rgb(181, 159, 59)'
 const GREEN   = 'rgb(83, 141, 78)'
@@ -47,7 +46,6 @@ function App() {
   }
 
   function resetColor(box) {
-    // box.style.backgroundColor = GREY_HIGHLIGHT
     box.style.backgroundColor = ''
     box.style.borderColor = BLACK
   }
@@ -56,22 +54,18 @@ function App() {
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${row}${i}`)
       const color = box.style.backgroundColor
-      if (color === GREY_HIGHLIGHT || color === '') {
-        console.log('row not colored')
+      if (color === '') {
         return false
       }
     }
     return true
   }
 
-  function markCurrentRow(currRow=row) {
-    for (let i = 0; i < 5;  i++) {
-      const box = document.getElementById(`col${currRow}${i}`)
-      resetColor(box)
-    }
-  }
-
   function fillWord(word) {
+    if (row == 6) {
+      return
+    }
+    
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${row}${i}`)
       box.value = word[i]
@@ -84,21 +78,14 @@ function App() {
   function setBoxCharacter(event) {
     event.preventDefault()
     console.log(event.target.id)
-    console.log('row: ', row)
-    console.log('col: ', col)
   
     if (event.target.id === 'key_ENTER') {
-      if (row == 4 || col != 5 || !rowColored()) {
+      if (row == 6 || col != 5 || !rowColored()) {
         return
       }
       updateWordList()
-      setRow(prevRow => {
-        const newRow = prevRow + 1
-        setCol(0)
-        markCurrentRow(newRow)
-        return newRow
-      });
-
+      setRow(row + 1)
+      setCol(0)
       return
     } 
   
@@ -136,12 +123,9 @@ function App() {
     }
 
     for (let i = 0; i < 5; i++) {
-      console.log('iteration: ', i)
       const currLetter = rowLetters[i].letter
-      const currColor = rowLetters[i].color
 
       if (rowLetters[i].color === BLACK) {
-        console.log('found black')
         let yellowExists = false
         let greenExists = false
         let greenIndexes = []
@@ -181,18 +165,13 @@ function App() {
           }
         }
       } else if (rowLetters[i].color === GREEN) {
-        console.log('found green')
         for (let j = row; j < 6; j++) {
           validLetters[j][i] = currLetter
         }
-        console.log('setting green: ', validLetters[row][i])
       } else if (rowLetters[i].color === YELLOW) {
-        console.log('found yellow')
         for (let j = row; j < 6; j++) {
           validLetters[j][i] = validLetters[row][i].replace(currLetter, '')
         }
-      } else {
-        console.log('found neither black, yellow, nor green')
       }
     }
     console.log(validLetters)
@@ -213,8 +192,6 @@ function App() {
   }
 
   function updateFrequencies(rowLetters) {
-    console.log('updating frequencies')
-
     let duplicates = []
     let temp = []
 
@@ -231,7 +208,6 @@ function App() {
 
     // Update singleton letters
     for (let i = 0; i < singletons.length; i++) {
-      console.log('updating singletons: ', singletons[i])
       let currLetter = singletons[i]
       let currColor = ''
       for (let j = 0; j < 5; j++) {
@@ -252,7 +228,6 @@ function App() {
 
     // Update duplicate letters
     for (let i = 0; i < duplicates.length; i++) {
-      console.log('updating duplicates: ', duplicates[0])
       let nbrColored = 0
       let nbrBlack = 0
 
@@ -287,7 +262,6 @@ function App() {
         .values(letterFrequencies)
         .map(item => item.atLeast)
         .reduce((acc, currentValue) => acc + currentValue, 0);
-      console.log('totalAtLeast: ', totalAtLeast)
       const newAtMost = 5 - totalAtLeast + currAtLeast
       let validPositions = 0
       for (let i = 0; i < 5; i++) {
@@ -345,16 +319,14 @@ function App() {
     return count <= atMost
   }
 
+  /*
   useEffect(() => {
     const firstInput = document.getElementById('col00');
     if (firstInput) {
       firstInput.focus();
     }
   }, []);
-
-  useEffect(() => {
-    markCurrentRow()
-  }, []);
+  */
 
   useEffect(() => {
     wordLists[0] = dict
