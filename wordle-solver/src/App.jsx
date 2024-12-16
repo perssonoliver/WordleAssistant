@@ -5,10 +5,11 @@ import Keyboard from './Keyboard'
 import MainGrid from './MainGrid'
 import WordList from './WordList'
 
+const GREY_HIGHLIGHT = 'rgb(90, 90, 90)'
 const BLACK   = 'rgb(59, 59, 59)'
 const YELLOW  = 'rgb(204, 175, 13)'
 const GREEN   = 'rgb(34, 150, 23)'
-const COLORS = [BLACK, YELLOW, GREEN]
+const COLORS  = [BLACK, YELLOW, GREEN]
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 let wordLists = []
@@ -26,25 +27,13 @@ function initLetters() {
   return letters
 }
 
-function defaultColors() {
-  const colors = {};
-  for (let i = 0; i < 6; i++) {
-    colors[i] = {};
-    for (let j = 0; j < 5; j++) {
-      colors[i][j] = '';
-    }
-  }
-  return colors;
-}
-
 function App() {
   const [row, setRow]           = useState(0);
   const [col, setCol]           = useState(0);
-  const [colors, setColors]     = useState(defaultColors);
   const [wordList, setWordList] = useState([])
 
-  function changeColor(target, row, col) {
-    const color = colors[row][col]
+  function changeColor(target) {
+    const color = target.style.backgroundColor
 
     let newColor;
     if (color === '') {
@@ -53,21 +42,33 @@ function App() {
       newColor = COLORS[(COLORS.indexOf(color) + 1) % COLORS.length]
     }
 
-    const newColors = { ...colors, [row]: { ...colors[row], [col]: newColor } };
-    setColors(newColors);
-
     target.style.backgroundColor = newColor
     target.style.borderColor = newColor
   }
 
+  function resetColor(box) {
+    // box.style.backgroundColor = GREY_HIGHLIGHT
+    box.style.backgroundColor = ''
+    box.style.borderColor = BLACK
+  }
+
   function rowColored() {
     for (let i = 0; i < 5; i++) {
-      const color = colors[row][i]
-      if (color === '') {
+      const box = document.getElementById(`col${row}${i}`)
+      const color = box.style.backgroundColor
+      if (color === GREY_HIGHLIGHT || color === '') {
+        console.log('row not colored')
         return false
       }
     }
     return true
+  }
+
+  function markCurrentRow(currRow=row) {
+    for (let i = 0; i < 5;  i++) {
+      const box = document.getElementById(`col${currRow}${i}`)
+      resetColor(box)
+    }
   }
   
   function setBoxCharacter(event) {
@@ -79,8 +80,13 @@ function App() {
         return
       }
       updateWordList()
-      setRow(row + 1)
-      setCol(0)
+      setRow(prevRow => {
+        const newRow = prevRow + 1;
+        setCol(0);  // Update col
+        markCurrentRow(newRow);  // Pass the updated row
+        return newRow;  // Return the new row state value
+      });
+
       return
     } 
   
@@ -91,6 +97,7 @@ function App() {
       const box = document.getElementById(`col${row}${col - 1}`)
       box.value = ''
       box.blur()
+      resetColor(box)
       setCol(col - 1)
       return
     }
@@ -109,9 +116,10 @@ function App() {
   function updateWordList() {
     const rowLetters = {}
     for (let i = 0; i < 5; i++) {
+      const box = document.getElementById(`col${row}${i}`)
       rowLetters[i] = {
-        letter: document.getElementById(`col${row}${i}`).value,
-        color: colors[row][i]
+        letter: box.value,
+        color: box.style.backgroundColor
       }
     }
 
@@ -330,6 +338,10 @@ function App() {
     if (firstInput) {
       firstInput.focus();
     }
+  }, []);
+
+  useEffect(() => {
+    markCurrentRow()
   }, []);
 
   useEffect(() => {

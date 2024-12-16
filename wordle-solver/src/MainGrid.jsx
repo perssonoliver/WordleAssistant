@@ -8,10 +8,7 @@ function MainGrid({ changeColor }) {
       return
     }
 
-    const row = event.target.id[3]
-    const col = event.target.id[4]
-
-    changeColor(event.target, row, col)
+    changeColor(event.target)
   }
 
   return (
