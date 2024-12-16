@@ -70,10 +70,22 @@ function App() {
       resetColor(box)
     }
   }
+
+  function fillWord(word) {
+    for (let i = 0; i < 5; i++) {
+      const box = document.getElementById(`col${row}${i}`)
+      box.value = word[i]
+      resetColor(box)
+      box.blur()
+    }
+    setCol(5)
+  }
   
   function setBoxCharacter(event) {
     event.preventDefault()
     console.log(event.target.id)
+    console.log('row: ', row)
+    console.log('col: ', col)
   
     if (event.target.id === 'key_ENTER') {
       if (row == 4 || col != 5 || !rowColored()) {
@@ -81,10 +93,10 @@ function App() {
       }
       updateWordList()
       setRow(prevRow => {
-        const newRow = prevRow + 1;
-        setCol(0);  // Update col
-        markCurrentRow(newRow);  // Pass the updated row
-        return newRow;  // Return the new row state value
+        const newRow = prevRow + 1
+        setCol(0)
+        markCurrentRow(newRow)
+        return newRow
       });
 
       return
@@ -352,7 +364,7 @@ function App() {
     <>
       <div className='container'>
         <MainGrid changeColor={changeColor}/>
-        <WordList wordList={wordList}/>
+        <WordList wordList={wordList} fillWord={fillWord}/>
       </div>
 
       <Keyboard setBoxCharacter={setBoxCharacter}/>
