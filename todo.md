@@ -2,7 +2,6 @@ TODO:
     - replace delete button text with image
     - add option reset latest row as well as every row
     - selecting a word from the wordlist should preselect it in the grid
-    - update green and yellow colors
     - refactor word list filtering code
     - move enter button next to the current row or highlight it when it can be pressed 
     - add functionality for pressing 'real' keyboard instead of screen keyboard
