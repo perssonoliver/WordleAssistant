@@ -7,8 +7,8 @@ import WordList from './WordList'
 
 const GREY_HIGHLIGHT = 'rgb(90, 90, 90)'
 const BLACK   = 'rgb(59, 59, 59)'
-const YELLOW  = 'rgb(204, 175, 13)'
-const GREEN   = 'rgb(34, 150, 23)'
+const YELLOW  = 'rgb(181, 159, 59)'
+const GREEN   = 'rgb(83, 141, 78)'
 const COLORS  = [BLACK, YELLOW, GREEN]
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
