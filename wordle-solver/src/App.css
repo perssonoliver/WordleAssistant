@@ -52,8 +52,8 @@
   align-items: center; /* Align elements to the right horizontally */
   justify-content: center; /* Center elements vertically */
   height: 48vh;
-  margin-top: 3vh;
-  margin-bottom: 3vh;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
   position: relative;
 }
 

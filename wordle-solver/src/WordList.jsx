@@ -4,7 +4,7 @@ import './App.css';
 function WordList({ wordList }) {
     return (
         <div className='word-list'>
-            <h2>Word List</h2>
+            <h2>Suggested words</h2>
             <ul className="list-group">
                 {wordList.map((word, i) => (
                     <li className="list-group-item" key={`word${i}`}>{word}</li>
