@@ -95,6 +95,7 @@
   flex-grow: 1;
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
   caret-color: transparent;
+  cursor: pointer;
 }
 
 .grid-col:focus {
@@ -121,10 +122,6 @@
   border-radius: 6px;
   width: 9%;
   background-color: var(--key-grey);
-  cursor: pointer;
-}
-
-.key-label {
   color: white;
   font-size: 2.5em;
   font-weight: bold;
@@ -134,23 +131,7 @@
   cursor: pointer;
 }
 
-.enter-key-label {
-  color: white;
-  font-size: 1.3em;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 6px; 
-  border: 1px solid black;
-  border-radius: 6px;
-  width: 13%;
-  background-color: var(--key-grey);
-  user-select: none;
-  cursor: pointer;
-}
-
-.del-key-label {
+.special-key-label {
   color: white;
   font-size: 1.3em;
   font-weight: bold;

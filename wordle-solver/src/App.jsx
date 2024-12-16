@@ -106,7 +106,7 @@ function App() {
       return
     }
 
-    const char = event.currentTarget.firstElementChild.id[4]
+    const char = event.target.id[4]
     const box = document.getElementById(`col${row}${col}`)
     box.value = char
     box.blur()
