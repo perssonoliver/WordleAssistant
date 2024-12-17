@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
+  padding-bottom: 2rem;
   text-align: center;
   background-color: black;
 
@@ -48,14 +48,67 @@
   color: #888;
 }
 
+.top-menu {
+  text-align: center;
+  border-bottom: 1px solid var(--select-grey);
+  width: 100%;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+}
+
+.top-menu-item {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.top-menu-icon {
+  width: 56px;
+  height: 56px;  
+}
+
 .container {
   display: flex;
   align-items: center; 
   justify-content: center; 
   height: 48vh;
-  margin-top: 6vh;
+  margin-top: 1vh;
   margin-bottom: 6vh;
   position: relative;
+}
+
+.main-grid {
+  width: 20vw;
+  height: 100%;
+}
+
+.grid-row {
+  display: flex;
+  height: 16.6667%;
+}
+
+.grid-col {
+  border: 2px solid var(--select-grey);
+  margin-right: 6px;
+  margin-bottom: 6px;
+  font-size: 2.5em;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1;
+  box-sizing: border-box;
+  caret-color: transparent;
+  cursor: pointer;
+}
+
+.grid-col:focus {
+  outline: none;
+}
+
+.grid-col::selection {
+  background-color: transparent;
 }
 
 .word-list {
@@ -66,6 +119,10 @@
   flex-direction: column;
   width: 12vw;
   max-height: 100%;
+}
+
+.word-list-header {
+  color: white;
 }
 
 .list-group {
@@ -107,43 +164,6 @@
 .word-item {
   cursor: pointer;
   user-select: none;
-}
-
-.word-list-header {
-  color: white;
-}
-
-.main-grid {
-  width: 20vw;
-  height: 100%;
-}
-
-.grid-row {
-  display: flex;
-  height: 16.6667%;
-}
-
-.grid-col {
-  border: 2px solid var(--select-grey);
-  margin-right: 6px;
-  margin-bottom: 6px;
-  font-size: 2.5em;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  flex-grow: 1;
-  box-sizing: border-box;
-  caret-color: transparent;
-  cursor: pointer;
-}
-
-.grid-col:focus {
-  outline: none;
-}
-
-.grid-col::selection {
-  background-color: transparent;
 }
 
 .key-row {
@@ -189,6 +209,6 @@
 
 .del-icon {
   vertical-align: middle;
-  width: 58px;
-  height: 58px;
+  width: 80%;
+  height: 90%;
 }

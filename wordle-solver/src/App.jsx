@@ -4,6 +4,7 @@ import dict from './dict.mjs'
 import Keyboard from './Keyboard'
 import MainGrid from './MainGrid'
 import WordList from './WordList'
+import Menu from './Menu'
 
 const GREY_SELECTED = 'rgb(95, 95, 95)'
 const BLACK   = 'rgb(59, 59, 59)'
@@ -31,6 +32,10 @@ function App() {
   const [row, setRow]           = useState(0);
   const [col, setCol]           = useState(0);
   const [wordList, setWordList] = useState([])
+
+  function reset() {
+    // todo
+  }
 
   function setColor(target) {
     const color = target.style.backgroundColor
@@ -319,6 +324,10 @@ function App() {
     return count <= atMost
   }
 
+  function displayHelp() {
+    // todo
+  }
+
   /*
   useEffect(() => {
     const firstInput = document.getElementById('col00');
@@ -334,6 +343,7 @@ function App() {
 
   return (
     <>
+      <Menu reset={reset} displayHelp={displayHelp}/>
       <div className='container'>
         <MainGrid row={row} setColor={setColor}/>
         <WordList wordList={wordList} fillWord={fillWord}/>
