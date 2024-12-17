@@ -49,24 +49,32 @@
 }
 
 .top-menu {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-bottom: 1px solid var(--select-grey);
   width: 100%;
-  padding-top: 0.75em;
-  padding-bottom: 0.75em;
 }
 
 .top-menu-item {
-  display: inline-block;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 1rem;
   margin-right: 1rem;
   cursor: pointer;
+  width: 72px;
+  height: 72px;
+}
+
+.top-menu-item:hover {
+  background-color: var(--select-grey);
 }
 
 .top-menu-icon {
-  width: 56px;
-  height: 56px;  
+  width: 54px;
+  height: 54px;
+  vertical-align: middle;
 }
 
 .container {
