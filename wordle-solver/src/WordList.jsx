@@ -10,7 +10,7 @@ function WordList({ wordList, fillWord }) {
 
     return (
         <div className='word-list'>
-            <h2 className='fs-4'>Suggested words</h2>
+            <h2 className='fs-4 word-list-header'>Suggested words</h2>
             <ul className='list-group'>
                 {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
                 {hasWords && wordList.map((word, i) => (
