@@ -133,7 +133,7 @@
   align-items: center;
   text-align: center;
   flex-grow: 1;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
   caret-color: transparent;
   cursor: pointer;
 }

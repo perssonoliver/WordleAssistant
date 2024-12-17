@@ -5,6 +5,7 @@ import Keyboard from './Keyboard'
 import MainGrid from './MainGrid'
 import WordList from './WordList'
 
+const GREY_SELECTED = 'rgb(95, 95, 95)'
 const BLACK   = 'rgb(59, 59, 59)'
 const YELLOW  = 'rgb(181, 159, 59)'
 const GREEN   = 'rgb(83, 141, 78)'
@@ -45,11 +46,6 @@ function App() {
     target.style.borderColor = newColor
   }
 
-  function resetColor(box) {
-    box.style.backgroundColor = ''
-    box.style.borderColor = BLACK
-  }
-
   function rowColored() {
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${row}${i}`)
@@ -69,7 +65,8 @@ function App() {
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${row}${i}`)
       box.value = word[i]
-      resetColor(box)
+      box.style.backgroundColor = ''
+      box.style.borderColor = GREY_SELECTED
       box.blur()
     }
     setCol(5)
@@ -96,7 +93,8 @@ function App() {
       const box = document.getElementById(`col${row}${col - 1}`)
       box.value = ''
       box.blur()
-      resetColor(box)
+      box.style.backgroundColor = ''
+      box.style.borderColor = BLACK
       setCol(col - 1)
       return
     }
@@ -108,6 +106,7 @@ function App() {
     const char = event.target.id[4]
     const box = document.getElementById(`col${row}${col}`)
     box.value = char
+    box.style.borderColor = GREY_SELECTED
     box.blur()
     setCol(col + 1)
   }
