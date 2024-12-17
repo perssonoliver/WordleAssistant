@@ -1,14 +1,17 @@
 import React from 'react'
 import './App.css'
 
-function MainGrid({ changeColor }) {
+function MainGrid({ row, setColor }) {
 
-  function changeColorHandler(event) {
-    if (event.target.value === '') {
+  function setColorHandler(event) {
+    const letter = event.target.value
+    const currRow = event.target.id[3]
+
+    if (letter === '' || currRow < row) {
       return
     }
 
-    changeColor(event.target)
+    setColor(event.target)
   }
 
   return (
@@ -17,17 +20,17 @@ function MainGrid({ changeColor }) {
         <div className="row grid-row" key={`row${i}`}>
           {[...Array(5)].map((_, j) => (
             <input 
-            className="col grid-col"  
-              type="text" 
-              maxLength="1" 
+              className="col grid-col"
+              type="text"
+              maxLength="1"
               key={`col${i}${j}`}
               id={`col${i}${j}`}
-              onClick={changeColorHandler}>
+              onClick={setColorHandler}>
             </input>
           ))}
         </div>
       ))}
-      </div>
+    </div>
   );
 }
 

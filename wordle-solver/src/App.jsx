@@ -32,7 +32,7 @@ function App() {
   const [col, setCol]           = useState(0);
   const [wordList, setWordList] = useState([])
 
-  function changeColor(target) {
+  function setColor(target) {
     const color = target.style.backgroundColor
 
     let newColor;
@@ -334,7 +334,7 @@ function App() {
   return (
     <>
       <div className='container'>
-        <MainGrid changeColor={changeColor}/>
+        <MainGrid row={row} setColor={setColor}/>
         <WordList wordList={wordList} fillWord={fillWord}/>
       </div>
 
