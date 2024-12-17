@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import delIcon from './deleteButton.png'; 
 
 const keyboard = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
 
@@ -49,7 +50,7 @@ function Keyboard({ setBoxCharacter }) {
                     key={'key_DEL'} 
                     id={'key_DEL'} 
                     onClick={setBoxCharacter}>
-                    {'DEL'}
+                    <img className='del-icon' src={delIcon} alt='DEL' />
                 </label>
             </div>
         </div>

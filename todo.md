@@ -1,5 +1,4 @@
 TODO: 
-    - replace delete button text with image
     - add option reset latest row as well as every row
     - refactor word list filtering code
     - move enter button next to the current row or highlight it when it can be pressed 

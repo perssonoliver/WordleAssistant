@@ -186,3 +186,9 @@
   user-select: none;
   cursor: pointer;
 }
+
+.del-icon {
+  vertical-align: middle;
+  width: 58px;
+  height: 58px;
+}
