@@ -74,9 +74,10 @@ function App() {
   
   function setBoxCharacter(event) {
     event.preventDefault()
-    console.log(event.target.id)
+    const id = event.target.id === '' ? event.currentTarget.id : event.target.id
+    console.log(id)
   
-    if (event.target.id === 'key_ENTER') {
+    if (id === 'key_ENTER') {
       if (row == 6 || col != 5 || !rowColored()) {
         return
       }
@@ -86,7 +87,7 @@ function App() {
       return
     } 
   
-    if (event.target.id === 'key_DEL') {
+    if (id === 'key_DEL') {
       if (col == 0) {
         return
       }
@@ -103,7 +104,7 @@ function App() {
       return
     }
 
-    const char = event.target.id[4]
+    const char = id[4]
     const box = document.getElementById(`col${row}${col}`)
     box.value = char
     box.style.borderColor = GREY_SELECTED
