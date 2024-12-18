@@ -1,7 +1,7 @@
 import React from 'react'
-import './App.css'
-import helpIcon from './helpIcon.png'
-import resetIcon from './resetIcon.png'
+import './Menu.css'
+import helpIcon from './assets/helpIcon.png'
+import resetIcon from './assets/resetIcon.png'
 
 function Menu({ reset, displayHelp }) {
 

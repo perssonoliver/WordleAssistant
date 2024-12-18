@@ -1,6 +1,6 @@
 import React from 'react'
-import './App.css'
-import delIcon from './deleteButton.png'; 
+import './Keyboard.css'
+import delIcon from './assets/deleteButton.png'; 
 
 const keyboard = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
 

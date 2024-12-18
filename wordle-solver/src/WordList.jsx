@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './WordList.css';
 
 function WordList({ wordList, fillWord }) {
     const hasWords = wordList.length > 0;

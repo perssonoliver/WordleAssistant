@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css'
+import './MainGrid.css'
 
 function MainGrid({ row, setColor }) {
 
