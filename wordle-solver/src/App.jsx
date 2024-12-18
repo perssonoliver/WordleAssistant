@@ -36,7 +36,7 @@ function App() {
   const [showHelp, setShowHelp] = useState(false)
 
   function reset() {
-    for (let i = row; i >= 0; i--) {
+    for (let i = Math.min(row, 5); i >= 0; i--) {
       for (let j = 0; j < 5; j++) {
         const box = document.getElementById(`col${i}${j}`)
         box.value = ''
@@ -121,7 +121,7 @@ function App() {
       return
     }
   
-    if (col == 5) {
+    if (col == 5 || row == 6) {
       return
     }
 
