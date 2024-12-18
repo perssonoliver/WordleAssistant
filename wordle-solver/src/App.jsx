@@ -5,6 +5,7 @@ import Keyboard from './Keyboard'
 import MainGrid from './MainGrid'
 import WordList from './WordList'
 import Menu from './Menu'
+import HelpScreen from './HelpScreen'
 
 const GREY_SELECTED = 'rgb(95, 95, 95)'
 const BLACK   = 'rgb(59, 59, 59)'
@@ -29,9 +30,10 @@ function initLetters() {
 }
 
 function App() {
-  const [row, setRow]           = useState(0);
-  const [col, setCol]           = useState(0);
+  const [row, setRow]           = useState(0)
+  const [col, setCol]           = useState(0)
   const [wordList, setWordList] = useState([])
+  const [showHelp, setShowHelp] = useState(false)
 
   function reset() {
     for (let i = row; i >= 0; i--) {
@@ -339,7 +341,11 @@ function App() {
   }
 
   function displayHelp() {
-    // todo
+    setShowHelp(true)
+  }
+
+  function closeHelp() {
+    setShowHelp(false)
   }
 
   /*
@@ -357,13 +363,15 @@ function App() {
 
   return (
     <>
-      <Menu reset={reset} displayHelp={displayHelp}/>
+      <Menu reset={reset} displayHelp={displayHelp} />
       <div className='container'>
-        <MainGrid row={row} setColor={setColor}/>
-        <WordList wordList={wordList} fillWord={fillWord}/>
+        <MainGrid row={row} setColor={setColor} />
+        <WordList wordList={wordList} fillWord={fillWord} />
       </div>
 
-      <Keyboard setBoxCharacter={setBoxCharacter}/>
+      <Keyboard setBoxCharacter={setBoxCharacter} />
+
+      {showHelp && <HelpScreen onClose={closeHelp} />}
     </>
   )
 }
