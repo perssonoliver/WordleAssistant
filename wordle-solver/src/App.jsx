@@ -34,7 +34,24 @@ function App() {
   const [wordList, setWordList] = useState([])
 
   function reset() {
-    // todo
+    for (let i = row; i >= 0; i--) {
+      for (let j = 0; j < 5; j++) {
+        const box = document.getElementById(`col${i}${j}`)
+        box.value = ''
+        box.style.backgroundColor = ''
+        box.style.borderColor = BLACK
+      }
+    }
+    setWordList([])
+    setRow(0)
+    setCol(0)
+    wordLists = []
+    wordLists[0] = dict
+    letterFrequencies = {}
+    validLetters = initLetters()
+    console.log('wordLists:', wordLists)
+    console.log('letterFrequencies:', letterFrequencies)
+    console.log('validLetters:', validLetters)
   }
 
   function setColor(target) {

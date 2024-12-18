@@ -1,5 +1,4 @@
 TODO: 
-    - implement reset
     - add option to reset the latest row 
     - refactor word list filtering code
     - move enter button next to the current row or highlight it when it can be pressed 
