@@ -49,9 +49,6 @@ function App() {
     wordLists[0] = dict
     letterFrequencies = {}
     validLetters = initLetters()
-    console.log('wordLists:', wordLists)
-    console.log('letterFrequencies:', letterFrequencies)
-    console.log('validLetters:', validLetters)
   }
 
   function setColor(target) {
