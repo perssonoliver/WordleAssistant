@@ -12,7 +12,8 @@
 }
   
 .help-content {
-    background: rgb(17, 17, 17);
+    text-align: left;
+    background: var(--bg-black);
     width: 500px;
     padding: 1rem;
     border-radius: 8px;
@@ -44,6 +45,12 @@
     vertical-align: middle;
 }
 
-.help-item {
+.help-header {
     color: white;
+}
+
+.help-list {
+    color: white;
+    list-style-type: disc; /* Add this line to style the list */
+    margin-left: 20px; /* Add this line to add some left margin */
 }
