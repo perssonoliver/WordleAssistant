@@ -2,10 +2,14 @@ import React from 'react'
 import './HelpScreen.css'
 import exitIcon from './assets/exitIcon.png'
 
-function HelpScreen({ onClose }) {
+function HelpScreen({ onClose, screenWidth }) {
     return (
         <div className='help-overlay' onClick={onClose}>
-            <div className='help-content' onClick={(e) => e.stopPropagation()}>
+            <div 
+                className='help-content' 
+                style={{ width: `${screenWidth * 0.27}px` }}
+                onClick={(e) => e.stopPropagation()}
+            >
                 <button className='exit-button' onClick={onClose}>
                     <img className='exit-icon' src={exitIcon} alt='X' />
                 </button>

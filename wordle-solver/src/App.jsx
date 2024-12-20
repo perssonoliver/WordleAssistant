@@ -379,7 +379,7 @@ function App() {
 
       <Keyboard setBoxCharacter={setBoxCharacter} screenWidth={screenWidth} />
 
-      {showHelp && <HelpScreen onClose={closeHelp} />}
+      {showHelp && <HelpScreen onClose={closeHelp} screenWidth={screenWidth} />}
     </>
   )
 }
