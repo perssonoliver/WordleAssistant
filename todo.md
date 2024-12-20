@@ -8,4 +8,4 @@ TODO:
     - change fonts
 
 BUGS: 
-    - fix fixed width of help screen related to the screen size
+    - 
