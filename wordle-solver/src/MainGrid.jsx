@@ -1,7 +1,7 @@
 import React from 'react'
 import './MainGrid.css'
 
-function MainGrid({ row, setColor }) {
+function MainGrid({ row, setColor, screenWidth }) {
 
   function setColorHandler(event) {
     const letter = event.target.value
@@ -15,14 +15,14 @@ function MainGrid({ row, setColor }) {
   }
 
   return (
-    <div className="main-grid">
+    <div className='main-grid' style={{ width: `${screenWidth * 0.2}px` }}>
         {[...Array(6)].map((_, i) => (
-        <div className="row grid-row" key={`row${i}`}>
+        <div className='row grid-row' key={`row${i}`}>
           {[...Array(5)].map((_, j) => (
             <input 
-              className="col grid-col"
-              type="text"
-              maxLength="1"
+              className='col grid-col'
+              type='text'
+              maxLength='1'
               key={`col${i}${j}`}
               id={`col${i}${j}`}
               onClick={setColorHandler}>

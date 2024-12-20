@@ -1,9 +1,12 @@
+.keyboard {
+  margin: auto;
+}
+
 .key-row {
   display: flex;
   list-style: none;
   justify-content: center;
-  height: 7vh;
-  width: 34vw;
+  height: 31%;
   margin: auto;
   margin-bottom: 6px;
 }
@@ -41,6 +44,6 @@
 
 .del-icon {
   vertical-align: middle;
-  width: 80%;
-  height: 90%;
+  width: 65%;
+  height: 75%;
 }

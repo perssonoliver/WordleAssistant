@@ -4,9 +4,15 @@ import delIcon from './assets/deleteButton.png';
 
 const keyboard = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
 
-function Keyboard({ setBoxCharacter }) {
+function Keyboard({ setBoxCharacter, screenWidth }) {
     return (
-        <div>
+        <div 
+            className='keyboard' 
+            style={{ 
+                width: `${screenWidth * 0.32}px`,
+                height: `${screenWidth * 0.32 * 0.35}px`
+            }}
+        >
             <div className='key-row'>
             {keyboard[0].split('').map((_, i) => (
                     <li 

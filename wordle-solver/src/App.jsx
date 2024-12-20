@@ -18,6 +18,8 @@ let wordLists = []
 let letterFrequencies = {}
 let validLetters = initLetters()
 
+const screenWidth = window.screen.width
+
 function initLetters() {
   let letters = {}
   for (let i = 0; i < 6; i++) {
@@ -364,12 +366,18 @@ function App() {
   return (
     <>
       <Menu reset={reset} displayHelp={displayHelp} />
-      <div className='container'>
-        <MainGrid row={row} setColor={setColor} />
-        <WordList wordList={wordList} fillWord={fillWord} />
+      <div 
+        className='main-container' 
+        style={{ 
+          width: `${screenWidth * 0.65}px`, 
+          height: `${screenWidth * 0.2 * 1.25}px`
+        }}
+      >
+        <MainGrid row={row} setColor={setColor} screenWidth={screenWidth} />
+        <WordList wordList={wordList} fillWord={fillWord} screenWidth={screenWidth} />
       </div>
 
-      <Keyboard setBoxCharacter={setBoxCharacter} />
+      <Keyboard setBoxCharacter={setBoxCharacter} screenWidth={screenWidth} />
 
       {showHelp && <HelpScreen onClose={closeHelp} />}
     </>

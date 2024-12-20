@@ -49,12 +49,13 @@
   color: #888;
 }
 
-.container {
+.main-container {
   display: flex;
   align-items: center; 
   justify-content: center; 
-  height: 48vh;
   margin-top: 30px;
   margin-bottom: 30px;
   position: relative;
+  margin-right: auto;
+  margin-left: auto;
 }

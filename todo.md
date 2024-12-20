@@ -8,4 +8,4 @@ TODO:
     - add transition when opening and closing help component
 
 BUGS: 
-    - size of grid boxes, key boxes, and the labels inside them should be fixed (compare with real wordle, minimizing the window size should not shrink the boxes)
+    - 
