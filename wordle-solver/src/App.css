@@ -4,8 +4,9 @@
   margin: 0 auto;
   padding-bottom: 2rem;
   text-align: center;
-  background-color: black;
+  background-color: var(--bg-black);
 
+  --bg-black: rgb(15, 15, 15);
   --select-grey: rgb(59, 59, 59);
   --select-yellow: rgb(204, 175, 13);
   --select-green: rgb(34, 150, 23);
