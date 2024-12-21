@@ -32,10 +32,11 @@ function initLetters() {
 }
 
 function App() {
-  const [row, setRow]           = useState(0)
-  const [col, setCol]           = useState(0)
-  const [wordList, setWordList] = useState([])
-  const [showHelp, setShowHelp] = useState(false)
+  const [row, setRow]                   = useState(0)
+  const [col, setCol]                   = useState(0)
+  const [wordList, setWordList]         = useState([])
+  const [showHelp, setShowHelp]         = useState(false)
+  const [showError, setShowError]       = useState(false)
 
   function reset() {
     for (let i = Math.min(row, 5); i >= 0; i--) {
@@ -95,19 +96,13 @@ function App() {
     setCol(5)
   }
   
-  function setBoxCharacter(event) {
+  function handleKeyPress(event) {
     event.preventDefault()
     const id = event.target.id === '' ? event.currentTarget.id : event.target.id
     console.log(id)
   
     if (id === 'key_ENTER') {
-      if (row == 6 || col != 5 || !rowColored()) {
-        return
-      }
-      updateWordList()
-      setRow(row + 1)
-      setCol(0)
-      return
+      return handleEnterPress()
     } 
   
     if (id === 'key_DEL') {
@@ -133,6 +128,26 @@ function App() {
     box.style.borderColor = GREY_SELECTED
     box.blur()
     setCol(col + 1)
+  }
+
+  function handleEnterPress() {
+    if (row == 6)
+      return;
+    if (col != 5 || !rowColored()) {
+      setShowError(true)
+      setTimeout(() => {
+        document.querySelector('.error-box').classList.add('hidden')
+        setTimeout(() => {
+          setShowError(false)
+        }, 200);
+      }, 1500);
+      return
+    }
+
+    updateWordList()
+    setRow(row + 1)
+    setCol(0)
+    return
   }
 
   function updateWordList() {
@@ -377,9 +392,12 @@ function App() {
         <WordList wordList={wordList} fillWord={fillWord} screenWidth={screenWidth} />
       </div>
 
-      <Keyboard setBoxCharacter={setBoxCharacter} screenWidth={screenWidth} />
+      <Keyboard handleKeyPress={handleKeyPress} screenWidth={screenWidth} />
 
       {showHelp && <HelpScreen onClose={closeHelp} screenWidth={screenWidth} />}
+      {showError && <div className={`error-box ${showError ? '' : 'hidden'}`}>
+        All tiles must be filled.
+      </div>}
     </>
   )
 }

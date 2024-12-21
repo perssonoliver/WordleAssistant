@@ -4,7 +4,7 @@ import delIcon from './assets/deleteButton.png';
 
 const keyboard = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM']
 
-function Keyboard({ setBoxCharacter, screenWidth }) {
+function Keyboard({ handleKeyPress, screenWidth }) {
     return (
         <div 
             className='keyboard' 
@@ -18,7 +18,7 @@ function Keyboard({ setBoxCharacter, screenWidth }) {
                     <li 
                         key={`key_${keyboard[0][i]}`} 
                         id={`key_${keyboard[0][i]}`}
-                        onClick={setBoxCharacter}>
+                        onClick={handleKeyPress}>
                         {keyboard[0][i]}
                     </li>
                 ))}
@@ -29,7 +29,7 @@ function Keyboard({ setBoxCharacter, screenWidth }) {
                     <li
                         key={`key_${keyboard[1][i]}`} 
                         id={`key_${keyboard[1][i]}`}
-                        onClick={setBoxCharacter}>
+                        onClick={handleKeyPress}>
                         {keyboard[1][i]}
                     </li>
                 ))}
@@ -40,14 +40,14 @@ function Keyboard({ setBoxCharacter, screenWidth }) {
                     className='special-key-label'
                     key={'key_ENTER'} 
                     id={'key_ENTER'} 
-                    onClick={setBoxCharacter}>
+                    onClick={handleKeyPress}>
                     {'ENTER'}
                 </label>
                 {keyboard[2].split('').map((_, i) => (
                     <li
                         key={`key_${keyboard[2][i]}`} 
                         id={`key_${keyboard[2][i]}`}
-                        onClick={setBoxCharacter}>
+                        onClick={handleKeyPress}>
                         {keyboard[2][i]}
                     </li>
                 ))}
@@ -55,7 +55,7 @@ function Keyboard({ setBoxCharacter, screenWidth }) {
                     className='special-key-label'
                     key={'key_DEL'} 
                     id={'key_DEL'} 
-                    onClick={setBoxCharacter}>
+                    onClick={handleKeyPress}>
                     <img className='del-icon' src={delIcon} alt='DEL' />
                 </label>
             </div>
