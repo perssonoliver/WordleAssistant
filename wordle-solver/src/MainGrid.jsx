@@ -25,7 +25,8 @@ function MainGrid({ row, setColor, screenWidth }) {
               maxLength='1'
               key={`col${i}${j}`}
               id={`col${i}${j}`}
-              onClick={setColorHandler}>
+              onClick={setColorHandler}
+              autoComplete='off'>
             </input>
           ))}
         </div>
