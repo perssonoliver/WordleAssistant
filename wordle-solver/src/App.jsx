@@ -362,7 +362,10 @@ function App() {
   }
 
   function closeHelp() {
-    setShowHelp(false)
+    document.querySelector('.help-content').classList.add('hidden')
+    setTimeout(() => {
+      setShowHelp(false)
+    }, 150);
   }
 
   /*

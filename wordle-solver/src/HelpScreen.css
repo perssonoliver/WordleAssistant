@@ -21,6 +21,12 @@
     flex-direction: column;
     max-height: 100%;
     z-index: 1001; 
+    opacity: 1;
+    transition: opacity 0.15s ease-out;
+}
+
+.help-content.hidden {
+    opacity: 0;
 }
 
 .exit-button {
