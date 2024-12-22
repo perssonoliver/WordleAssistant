@@ -1,5 +1,6 @@
 .keyboard {
   margin: auto;
+  border: 1px solid violet;
 }
 
 .key-row {

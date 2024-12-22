@@ -4,6 +4,7 @@
     justify-content: center;
     border-bottom: 1px solid var(--select-grey);
     width: 100%;
+    border: 1px solid green;
 }
   
 .top-menu-item {
