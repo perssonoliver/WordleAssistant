@@ -7,4 +7,5 @@ TODO:
     - change fonts
 
 BUGS: 
-    - 
+    - when user presses backspace button and row is filled, it doesn't remove last letter (because col is 5, so last col box is not highlighted)
+    - pressing anywhere outside the main grid should not unfocus the current box

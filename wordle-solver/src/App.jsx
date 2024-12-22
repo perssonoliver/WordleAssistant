@@ -54,6 +54,7 @@ function App() {
     wordLists[0] = dict
     letterFrequencies = {}
     validLetters = initLetters()
+    document.getElementById('col00').focus();
   }
 
   function setColor(target) {
@@ -101,17 +102,19 @@ function App() {
     const id = event.target.id === '' ? event.currentTarget.id : event.target.id
     console.log(id)
   
-    if (id === 'key_ENTER') {
+    if (id === 'key_ENTER' || event.key === 'Enter') {
       return handleEnterPress()
     } 
   
-    if (id === 'key_DEL') {
+    if (id === 'key_DEL' || event.key === 'Backspace') {
+      console.log('Backspace')
       if (col == 0) {
+        document.getElementById(`col${row}${col}`).focus()
         return
       }
       const box = document.getElementById(`col${row}${col - 1}`)
       box.value = ''
-      box.blur()
+      box.focus()
       box.style.backgroundColor = ''
       box.style.borderColor = BLACK
       setCol(col - 1)
@@ -122,11 +125,36 @@ function App() {
       return
     }
 
+    if (id.includes('col')) {
+      console.log(event.key)
+      const input = event.key.toUpperCase()
+      const box = document.getElementById(`col${row}${col}`)
+      if (!ALPHABET.includes(input)) {
+        console.log('Invalid input')
+        box.value = ''
+        return
+      }
+
+      box.value = input
+      box.style.borderColor = GREY_SELECTED
+      box.blur()
+      if (col < 4) {
+        const nextBox = document.getElementById(`col${row}${col + 1}`)
+        nextBox.focus();
+      }
+      setCol(col + 1)
+      return
+    }
+
     const char = id[4]
     const box = document.getElementById(`col${row}${col}`)
     box.value = char
     box.style.borderColor = GREY_SELECTED
     box.blur()
+    if (col < 4) {
+      const nextBox = document.getElementById(`col${row}${col + 1}`)
+      nextBox.focus();
+    }
     setCol(col + 1)
   }
 
@@ -145,6 +173,10 @@ function App() {
     }
 
     updateWordList()
+    if (row < 5) {
+      const nextBox = document.getElementById(`col${row + 1}${0}`)
+      nextBox.focus();
+    }
     setRow(row + 1)
     setCol(0)
     return
@@ -368,14 +400,12 @@ function App() {
     }, 150);
   }
 
-  /*
   useEffect(() => {
     const firstInput = document.getElementById('col00');
     if (firstInput) {
       firstInput.focus();
     }
   }, []);
-  */
 
   useEffect(() => {
     wordLists[0] = dict
@@ -391,7 +421,7 @@ function App() {
           height: `${screenWidth * 0.2 * 1.25}px`
         }}
       >
-        <MainGrid row={row} setColor={setColor} screenWidth={screenWidth} />
+        <MainGrid row={row} setColor={setColor} screenWidth={screenWidth} handleKeyPress={handleKeyPress} />
         <WordList wordList={wordList} fillWord={fillWord} screenWidth={screenWidth} />
       </div>
 
