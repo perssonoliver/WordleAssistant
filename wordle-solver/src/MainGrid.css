@@ -1,6 +1,5 @@
 .main-grid {
   height: 100%;
-  border: 1px solid blue;
   display: grid;
   grid-template-rows: repeat(6, 1fr);
   grid-template-columns: repeat(5, 1fr);
@@ -12,7 +11,7 @@
   height: 100%;
   text-align: center;
   border: 2px solid var(--select-grey);
-  font-size: 4vh;
+  font-size: 3em;
   font-weight: bold;
   caret-color: transparent;
   cursor: pointer;
@@ -24,19 +23,4 @@
 
 .main-grid input::selection {
   background-color: transparent;
-}
-
-.grid-col {
-  border: 2px solid var(--select-grey);
-  margin-right: 6px;
-  margin-bottom: 6px;
-  font-size: 2.5em;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  flex-grow: 1;
-  box-sizing: border-box;
-  caret-color: transparent;
-  cursor: pointer;
 }

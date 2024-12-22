@@ -1,50 +1,47 @@
 .keyboard {
+  display: flex;
+  flex-direction: column;
   margin: auto;
-  border: 1px solid violet;
+  gap: 6px;
 }
 
 .key-row {
+  height: 100%;
   display: flex;
-  list-style: none;
   justify-content: center;
-  height: 31%;
-  margin: auto;
-  margin-bottom: 6px;
+  gap: 6px;
 }
 
-.key-row li {
-  margin-right: 6px; 
-  border: 1px solid black;
-  border-radius: 6px;
+.key-label {
   width: 9%;
+  border-radius: 6px;
   background-color: var(--key-grey);
-  color: white;
-  font-size: 2.5em;
-  font-weight: bold;
-  justify-content: center;
-  text-align: center;
-  user-select: none;
-  cursor: pointer;
-}
-
-.special-key-label {
   color: white;
   font-size: 1.3em;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 6px; 
-  border: 1px solid black;
-  border-radius: 6px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.special-key-label {
   width: 13%;
+  border-radius: 6px;
   background-color: var(--key-grey);
+  color: white;
+  font-size: 0.7em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   user-select: none;
   cursor: pointer;
 }
 
 .del-icon {
   vertical-align: middle;
-  width: 65%;
-  height: 75%;
+  width: 50%;
+  height: 65%;
 }

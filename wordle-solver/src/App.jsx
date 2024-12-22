@@ -387,7 +387,7 @@ function App() {
       <div 
         className='main-container' 
         style={{ 
-          width: `${screenWidth * 0.65}px`, 
+          minWidth: `${screenWidth * 0.2 + screenWidth * 0.1 + 150}px`, 
           height: `${screenWidth * 0.2 * 1.25}px`
         }}
       >

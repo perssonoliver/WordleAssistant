@@ -10,7 +10,7 @@
   --select-grey: rgb(59, 59, 59);
   --select-yellow: rgb(204, 175, 13);
   --select-green: rgb(34, 150, 23);
-  --key-grey: rgb(88, 88, 88);
+  --key-grey: rgb(134, 134, 134);
 }
 
 .logo {
@@ -52,12 +52,13 @@
 .main-container {
   display: flex;
   justify-content: center; 
+  width: 65vw;
+  min-width: 650px;
   margin-top: 30px;
   margin-bottom: 30px;
   position: relative;
   margin-right: auto;
   margin-left: auto;
-  border: 1px solid red;
 }
 
 .error-box {

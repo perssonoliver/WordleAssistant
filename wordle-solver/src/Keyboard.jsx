@@ -9,29 +9,31 @@ function Keyboard({ handleKeyPress, screenWidth }) {
         <div 
             className='keyboard' 
             style={{ 
-                width: `${screenWidth * 0.32}px`,
-                height: `${screenWidth * 0.32 * 0.35}px`
+                width: `${screenWidth * 0.3}px`,
+                height: `${screenWidth * 0.3 * 0.33}px`
             }}
         >
             <div className='key-row'>
-            {keyboard[0].split('').map((_, i) => (
-                    <li 
+                {keyboard[0].split('').map((_, i) => (
+                    <label 
+                        className='key-label'
                         key={`key_${keyboard[0][i]}`} 
                         id={`key_${keyboard[0][i]}`}
                         onClick={handleKeyPress}>
                         {keyboard[0][i]}
-                    </li>
+                    </label>
                 ))}
             </div>
 
             <div className='key-row'>
                 {keyboard[1].split('').map((_, i) => (
-                    <li
+                    <label
+                        className='key-label'
                         key={`key_${keyboard[1][i]}`} 
                         id={`key_${keyboard[1][i]}`}
                         onClick={handleKeyPress}>
                         {keyboard[1][i]}
-                    </li>
+                    </label>
                 ))}
             </div>
 
@@ -44,12 +46,13 @@ function Keyboard({ handleKeyPress, screenWidth }) {
                     {'ENTER'}
                 </label>
                 {keyboard[2].split('').map((_, i) => (
-                    <li
+                    <label
+                        className='key-label'
                         key={`key_${keyboard[2][i]}`} 
                         id={`key_${keyboard[2][i]}`}
                         onClick={handleKeyPress}>
                         {keyboard[2][i]}
-                    </li>
+                    </label>
                 ))}
                 <label 
                     className='special-key-label'
