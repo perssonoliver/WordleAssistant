@@ -37,6 +37,7 @@ function App() {
   const [wordList, setWordList]         = useState([])
   const [showHelp, setShowHelp]         = useState(false)
   const [showError, setShowError]       = useState(false)
+  const [currentBox, setCurrentBox]     = useState(null)
 
   function reset() {
     for (let i = Math.min(row, 5); i >= 0; i--) {
@@ -54,7 +55,9 @@ function App() {
     wordLists[0] = dict
     letterFrequencies = {}
     validLetters = initLetters()
-    document.getElementById('col00').focus();
+    const box = document.getElementById('col00')
+    box.focus()
+    setCurrentBox(box)
   }
 
   function setColor(target) {
@@ -95,65 +98,53 @@ function App() {
       box.blur()
     }
     setCol(5)
+    const nextBox = document.getElementById(`col${row}4`)
+    nextBox.focus()
+    setCurrentBox(nextBox)
   }
   
   function handleKeyPress(event) {
-    event.preventDefault()
     const id = event.target.id === '' ? event.currentTarget.id : event.target.id
+    console.log(event.key)
     console.log(id)
-  
-    if (id === 'key_ENTER' || event.key === 'Enter') {
-      return handleEnterPress()
-    } 
-  
-    if (id === 'key_DEL' || event.key === 'Backspace') {
-      console.log('Backspace')
-      if (col == 0) {
-        document.getElementById(`col${row}${col}`).focus()
-        return
-      }
-      const box = document.getElementById(`col${row}${col - 1}`)
-      box.value = ''
-      box.focus()
-      box.style.backgroundColor = ''
-      box.style.borderColor = BLACK
-      setCol(col - 1)
-      return
+
+    if (!event.key?.includes('F')) {
+      event.preventDefault()
+      console.log('Prevented default')
     }
   
-    if (col == 5 || row == 6) {
-      return
-    }
+    if (id === 'key_ENTER' || event.key === 'Enter')
+      return handleEnterPress();
+  
+    if (id === 'key_DEL' || event.key === 'Backspace')
+      return handleBackspace();
+  
+    if (col == 5 || row == 6)
+      return;
+
+    let box;
+    let newValue;
 
     if (id.includes('col')) {
-      console.log(event.key)
-      const input = event.key.toUpperCase()
-      const box = document.getElementById(`col${row}${col}`)
-      if (!ALPHABET.includes(input)) {
-        console.log('Invalid input')
-        box.value = ''
+      box = document.getElementById(`col${row}${col}`)
+      newValue = event.key.toUpperCase()
+      if (!ALPHABET.includes(newValue)) {
+        console.log('Invalid key')
         return
       }
-
-      box.value = input
-      box.style.borderColor = GREY_SELECTED
-      box.blur()
-      if (col < 4) {
-        const nextBox = document.getElementById(`col${row}${col + 1}`)
-        nextBox.focus();
-      }
-      setCol(col + 1)
-      return
+    } else {
+      box = document.getElementById(`col${row}${col}`)
+      newValue = id[4]
     }
 
-    const char = id[4]
-    const box = document.getElementById(`col${row}${col}`)
-    box.value = char
+    console.log("Assigning new value")
+    box.value = newValue
     box.style.borderColor = GREY_SELECTED
-    box.blur()
     if (col < 4) {
+      box.blur()
       const nextBox = document.getElementById(`col${row}${col + 1}`)
-      nextBox.focus();
+      nextBox.focus()
+      setCurrentBox(nextBox)
     }
     setCol(col + 1)
   }
@@ -161,6 +152,7 @@ function App() {
   function handleEnterPress() {
     if (row == 6)
       return;
+
     if (col != 5 || !rowColored()) {
       setShowError(true)
       setTimeout(() => {
@@ -175,11 +167,26 @@ function App() {
     updateWordList()
     if (row < 5) {
       const nextBox = document.getElementById(`col${row + 1}${0}`)
-      nextBox.focus();
+      nextBox.focus()
+      setCurrentBox(nextBox)
     }
     setRow(row + 1)
     setCol(0)
-    return
+  }
+
+  function handleBackspace() {
+    if (col == 0) 
+      return;
+
+    let box = document.getElementById(`col${row}${col - 1}`)
+    box.focus()
+    setCurrentBox(box)
+    box.value = ''
+    box.style.backgroundColor = ''
+    box.style.borderColor = BLACK
+    if (col > 0) {
+      setCol(col - 1)
+    }
   }
 
   function updateWordList() {
@@ -398,14 +405,29 @@ function App() {
     setTimeout(() => {
       setShowHelp(false)
     }, 150);
+    setCurrentBox(currentBox)
   }
 
   useEffect(() => {
     const firstInput = document.getElementById('col00');
     if (firstInput) {
-      firstInput.focus();
+      firstInput.focus()
+      setCurrentBox(firstInput)
     }
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (currentBox && !event.target.closest('.main-grid')) {
+        currentBox.focus()
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    };
+  }, [currentBox]);
 
   useEffect(() => {
     wordLists[0] = dict
@@ -432,7 +454,7 @@ function App() {
         All tiles must be filled.
       </div>}
     </>
-  )
+  );
 }
 
 export default App;

@@ -7,5 +7,5 @@ TODO:
     - change fonts
 
 BUGS: 
-    - when user presses backspace button and row is filled, it doesn't remove last letter (because col is 5, so last col box is not highlighted)
-    - pressing anywhere outside the main grid should not unfocus the current box
+    - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
+    - exiting the help screen does not refocus the current box
