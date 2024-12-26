@@ -105,12 +105,9 @@ function App() {
   
   function handleKeyPress(event) {
     const id = event.target.id === '' ? event.currentTarget.id : event.target.id
-    console.log(event.key)
-    console.log(id)
 
-    if (!event.key?.includes('F')) {
+    if (!event.key?.includes('F') || event.key?.length === 1) {
       event.preventDefault()
-      console.log('Prevented default')
     }
   
     if (id === 'key_ENTER' || event.key === 'Enter')
@@ -129,7 +126,6 @@ function App() {
       box = document.getElementById(`col${row}${col}`)
       newValue = event.key.toUpperCase()
       if (!ALPHABET.includes(newValue)) {
-        console.log('Invalid key')
         return
       }
     } else {
@@ -137,7 +133,6 @@ function App() {
       newValue = id[4]
     }
 
-    console.log("Assigning new value")
     box.value = newValue
     box.style.borderColor = GREY_SELECTED
     if (col < 4) {
@@ -201,71 +196,72 @@ function App() {
 
     for (let i = 0; i < 5; i++) {
       const currLetter = rowLetters[i].letter
+      const currColor = rowLetters[i].color
 
-      if (rowLetters[i].color === BLACK) {
-        let yellowExists = false
-        let greenExists = false
-        let greenIndexes = []
-
-        for (let j = 0; j < 5; j++) {
-          if (rowLetters[j].letter === currLetter) {
-            if (rowLetters[j].color === YELLOW) {
-              yellowExists = true
-            } else if (rowLetters[j].color === GREEN) {
-              greenExists = true
-              greenIndexes.push(j)
-            } else {
-              continue
-            }
-            break
-          }
-        }
-
-        if (yellowExists) {
+      switch (currColor) {
+        case GREEN:
+          // Assign (only) green letter to the column
           for (let j = row; j < 6; j++) {
-            validLetters[j][i] = validLetters[j][i].replace(currLetter, '')
+            validLetters[j][i] = currLetter
           }
-        } else if (greenExists) {
+          break;
+        case YELLOW:
+          // Remove yellow letter from the column
           for (let j = row; j < 6; j++) {
-            for (let k = 0; k < 5; k++) {
-              if (greenIndexes.includes(k)) {
+            validLetters[j][i] = validLetters[row][i].replace(currLetter, '')
+          }
+          break;
+        case BLACK:
+          let yellowExists = false
+          let greenExists = false
+          let greenIndexes = []
+
+          for (let j = 0; j < 5; j++) {
+            if (rowLetters[j].letter === currLetter) {
+              if (rowLetters[j].color === YELLOW) {
+                yellowExists = true
+              } else if (rowLetters[j].color === GREEN) {
+                greenExists = true
+                greenIndexes.push(j)
+              } else {
                 continue
               }
-              validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
+              break
             }
           }
-        } else {
-          for (let j = row; j < 6; j++) {
-            for (let k = 0; k < 5; k++) {
-              validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
+
+          if (yellowExists) {
+            // Only remove black letter from the current column
+            for (let j = row; j < 6; j++) {
+              validLetters[j][i] = validLetters[j][i].replace(currLetter, '')
+            }
+          } else if (greenExists) {
+            // Remove black letter from all columns except green ones
+            for (let j = row; j < 6; j++) {
+              for (let k = 0; k < 5; k++) {
+                if (greenIndexes.includes(k)) {
+                  continue
+                }
+                validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
+              }
+            }
+          } else {
+            // Remove black letter from all columns
+            for (let j = row; j < 6; j++) {
+              for (let k = 0; k < 5; k++) {
+                validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
+              }
             }
           }
-        }
-      } else if (rowLetters[i].color === GREEN) {
-        for (let j = row; j < 6; j++) {
-          validLetters[j][i] = currLetter
-        }
-      } else if (rowLetters[i].color === YELLOW) {
-        for (let j = row; j < 6; j++) {
-          validLetters[j][i] = validLetters[row][i].replace(currLetter, '')
-        }
+          break;
       }
     }
     console.log(validLetters)
     updateFrequencies(rowLetters)
     console.log(letterFrequencies)
 
-    // Filter the word list and save it in wordLists
     filterWordList()
     setWordList(wordLists[row + 1])
-
-    /*
-    let newWords = [...Array((row + 1) * 2)]
-    for (let i = 0; i < (row + 1) * 2; i++) {
-      newWords[i] = dict[i]
-    }
-    setWordList(newWords)
-    */
   }
 
   function updateFrequencies(rowLetters) {
