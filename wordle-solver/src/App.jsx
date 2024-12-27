@@ -440,7 +440,14 @@ function App() {
         }}
       >
         <MainGrid row={row} setColor={setColor} screenWidth={screenWidth} handleKeyPress={handleKeyPress} />
-        <WordList wordList={wordList} fillWord={fillWord} screenWidth={screenWidth} />
+        <WordList 
+          wordList={wordList} 
+          validLetters={validLetters}
+          validLetterFrequencies={letterFrequencies}
+          fillWord={fillWord} 
+          row={row} 
+          screenWidth={screenWidth} 
+        />
       </div>
 
       <Keyboard handleKeyPress={handleKeyPress} screenWidth={screenWidth} />
