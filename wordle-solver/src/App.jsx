@@ -431,26 +431,33 @@ function App() {
 
   return (
     <>
-      <Menu reset={reset} displayHelp={displayHelp} />
-      <div 
-        className='main-container' 
-        style={{ 
-          minWidth: `${screenWidth * 0.2 + screenWidth * 0.1 + 150}px`, 
-          height: `${screenWidth * 0.2 * 1.25}px`
-        }}
-      >
-        <MainGrid row={row} setColor={setColor} screenWidth={screenWidth} handleKeyPress={handleKeyPress} />
-        <WordList 
-          wordList={wordList} 
-          validLetters={validLetters}
-          validLetterFrequencies={letterFrequencies}
-          fillWord={fillWord} 
-          row={row} 
-          screenWidth={screenWidth} 
-        />
-      </div>
+      <div className='main-container'>
+        <Menu reset={reset} displayHelp={displayHelp} />
 
-      <Keyboard handleKeyPress={handleKeyPress} screenWidth={screenWidth} />
+        <div className='center-container'>
+          <div 
+            className='center-vertical-container' 
+          >
+            <MainGrid 
+              style={{ height: `${screenWidth * 0.2 * 1.25}px` }}
+              row={row} 
+              setColor={setColor} 
+              screenWidth={screenWidth} 
+              handleKeyPress={handleKeyPress} 
+            />
+            <Keyboard handleKeyPress={handleKeyPress} screenWidth={screenWidth} />
+          </div>
+
+          <WordList 
+            wordList={wordList} 
+            validLetters={validLetters}
+            validLetterFrequencies={letterFrequencies}
+            fillWord={fillWord} 
+            row={row} 
+            screenWidth={screenWidth} 
+          />
+        </div>
+      </div>
 
       {showHelp && <HelpScreen onClose={closeHelp} screenWidth={screenWidth} />}
       {showError && <div className={`error-box ${showError ? '' : 'hidden'}`}>

@@ -1,8 +1,8 @@
 .keyboard {
   display: flex;
   flex-direction: column;
-  margin: auto;
   gap: 6px;
+  border: 1px solid blue;
 }
 
 .key-row {
