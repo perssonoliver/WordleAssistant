@@ -5,6 +5,7 @@ TODO:
     - add tips for valid words (most frequent letter, most common position of yellow letter etc)
     - make website adaptable for mobile devices
     - top menu icons should be in the vertical container so that they always align with the main grid (make everything into a grid instead)
+    - window size should have a minimum width
 
 BUGS: 
     - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
