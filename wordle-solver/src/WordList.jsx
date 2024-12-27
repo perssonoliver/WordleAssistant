@@ -34,7 +34,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             }
             scores[currWord] = score
         }
-        setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]))
+        setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 8))
         console.log(scores)
     }, [wordList]);
 
