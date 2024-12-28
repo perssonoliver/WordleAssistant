@@ -23,7 +23,8 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             let score = 0
 
             let visitedLetters = []
-            for (const letter of currWord) {
+            for (const i in currWord) {
+                const letter = currWord[i]
                 if (!visitedLetters.includes(letter)) {
                     score += letterFrequencies[letter]
                     visitedLetters.push(letter)
@@ -36,8 +37,8 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             }
             scores[currWord] = score
         }
+        console.log('scores', scores)
         setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 8))
-        console.log(scores)
     }, [wordList]);
 
     function getLetterFrequencies() {
