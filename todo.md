@@ -5,9 +5,8 @@ TODO:
     - add tips for valid words (most frequent letter, most common position of yellow letter etc)
     - make website adaptable for mobile devices
     - window size should have a minimum width
-    - several copies of yellow letters gets a very high score (maybe multiply total score with probability of having as many copies of the yellow letter in the current word)
+    - with 20 or less words left, suggest words that cover as many letters as possible from the letters in the words that are currently neither black, green, or yellow (+2 points for each letter)
 
 BUGS: 
     - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
     - exiting the help screen does not refocus the current box
-    - check bug where 'yellowLetters' in WordList also includes green letters

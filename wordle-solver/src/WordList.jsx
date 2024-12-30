@@ -12,9 +12,14 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
     }
 
     useEffect(() => {
+        updateScores()
+    }, [wordList]);
+
+    function updateScores() {
         let letterFrequencies = getLetterFrequencies()
         console.log('letterFrequencies: ', letterFrequencies)
         let yellowLetterIndexFrequencies = getYellowLetterIndexFrequencies()
+        console.log('valid letters in row: ', validLetters[row])
         console.log('yellowLetterIndexFrequencies: ', yellowLetterIndexFrequencies)
         
         let scores = {}
@@ -32,14 +37,14 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                     score += (letterFrequencies[letter] / 2)
                 }
                 if (yellowLetterIndexFrequencies[letter]) {
-                    score += yellowLetterIndexFrequencies[letter][i]
+                    score += yellowLetterIndexFrequencies[letter][i] / 5
                 }
             }
             scores[currWord] = score
         }
-        console.log('scores', scores)
+        console.log('sorted scores: ', Object.fromEntries(Object.entries(scores).sort((a, b) => b[1] - a[1])))
         setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 8))
-    }, [wordList]);
+    }
 
     function getLetterFrequencies() {
         let letterFrequencies = {}
@@ -54,13 +59,22 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
     function getYellowLetterIndexFrequencies() {
         let yellowLetters = []
         for (const currLetter of Object.keys(validLetterFrequencies)) {
+            if (yellowLetters.includes(currLetter)) {
+                continue
+            }
+
+            let foundLetter = false
+            let foundGreen = false
             for (let j = 0; j < 5; j++) {
-                // Right now it also captures green letters...
-                if (validLetters[row][j].includes(currLetter) && validLetters[row][j].length > 1) {
-                    if (!yellowLetters.includes(currLetter)) {
-                        yellowLetters.push(currLetter)
+                if (validLetters[row][j].includes(currLetter)) {
+                    foundLetter = true
+                    if (validLetters[row][j].length === 1) {
+                        foundGreen = true
                     }
                 }
+            }
+            if (foundLetter && !foundGreen) {
+                yellowLetters.push(currLetter)
             }
         }
         let yellowLetterIndexFrequencies = {}
