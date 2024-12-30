@@ -429,34 +429,39 @@ function App() {
     wordLists[0] = dict
   }, []);
 
+  useEffect(() => {
+    const secondRowHeight = `${screenWidth * 0.2 * 1.25}px`;
+    document.documentElement.style.setProperty('--second-row-height', secondRowHeight);
+  }, [screenWidth]);
+
   return (
     <>
       <div className='main-container'>
+
+        <div className='empty-col'></div>
         <Menu reset={reset} displayHelp={displayHelp} />
+        <div className='empty-col'></div>
 
-        <div className='center-container'>
-          <div 
-            className='center-vertical-container' 
-          >
-            <MainGrid 
-              style={{ height: `${screenWidth * 0.2 * 1.25}px` }}
-              row={row} 
-              setColor={setColor} 
-              screenWidth={screenWidth} 
-              handleKeyPress={handleKeyPress} 
-            />
-            <Keyboard handleKeyPress={handleKeyPress} screenWidth={screenWidth} />
-          </div>
+        <div className='empty-col'></div>
+        <MainGrid 
+          row={row} 
+          setColor={setColor} 
+          screenWidth={screenWidth} 
+          handleKeyPress={handleKeyPress} 
+        />
+        <WordList 
+          wordList={wordList} 
+          validLetters={validLetters}
+          validLetterFrequencies={letterFrequencies}
+          fillWord={fillWord} 
+          row={row} 
+          screenWidth={screenWidth} 
+        />
 
-          <WordList 
-            wordList={wordList} 
-            validLetters={validLetters}
-            validLetterFrequencies={letterFrequencies}
-            fillWord={fillWord} 
-            row={row} 
-            screenWidth={screenWidth} 
-          />
-        </div>
+        <div className='empty-col'></div>
+        <Keyboard handleKeyPress={handleKeyPress} screenWidth={screenWidth} />
+        <div className='empty-col'></div>
+
       </div>
 
       {showHelp && <HelpScreen onClose={closeHelp} screenWidth={screenWidth} />}

@@ -1,9 +1,11 @@
 .top-menu {
+    grid-row: 1;
+    grid-column: 2;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid var(--select-grey);
-    width: 100%;
+    border: 1px solid saddlebrown;
 }
   
 .top-menu-item {

@@ -4,7 +4,6 @@ TODO:
     - change fonts
     - add tips for valid words (most frequent letter, most common position of yellow letter etc)
     - make website adaptable for mobile devices
-    - top menu icons should be in the vertical container so that they always align with the main grid (make everything into a grid instead)
     - window size should have a minimum width
     - several copies of yellow letters gets a very high score (maybe multiply total score with probability of having as many copies of the yellow letter in the current word)
 
