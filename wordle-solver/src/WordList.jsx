@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './WordList.css'
+import dict from './dict.mjs'
 
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -41,6 +42,33 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                 }
             }
             scores[currWord] = score
+        }
+
+        if (wordList.length > 2 && wordList.length < 20 && Object.keys(validLetterFrequencies).length < 5) {
+            // with 20 or less words left, suggest words that cover as many letters as possible 
+            // from the letters in the words that are currently neither black, green, or yellow 
+            // (+2 points for each letter)
+
+            const multiplier = Object.keys(validLetterFrequencies).length
+            const unusedLetters = getUnusedLetters()
+
+            for (const word of dict) {
+                if (wordList.includes(word)) {
+                    continue
+                }
+
+                let visitedLetters = []
+                let score = 0
+                for (const letter of unusedLetters) {
+                    if (word.includes(letter) && !visitedLetters.includes(letter)) {
+                        score += 0.45 * multiplier
+                        visitedLetters.push(letter)
+                    }
+                }
+                if (score > 2.5) {
+                    scores[word] = score
+                }
+            }
         }
         console.log('sorted scores: ', Object.fromEntries(Object.entries(scores).sort((a, b) => b[1] - a[1])))
         setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 8))
@@ -105,10 +133,23 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
         return yellowLetterIndexFrequencies
     }
 
+    function getUnusedLetters() {
+        const usedLetters = Object.keys(validLetterFrequencies)
+        let unusedLetters = []
+        for (const word of wordList) {
+            for (const letter of word) {
+                if (!usedLetters.includes(letter) && !unusedLetters.includes(letter)) {
+                    unusedLetters.push(letter)
+                }
+            }
+        }
+        return unusedLetters
+    }
+
     return (
         <div className='word-list-container'>
             <div className='word-list' style={{ width: `${screenWidth * 0.1}px` }}>
-                <h2 className='fs-4 word-list-header'>Possible words</h2>
+                <h2 className='fs-7 word-list-header'>Possible words</h2>
                 <ul className='list-group'>
                     {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
                     {hasWords && wordList.map((word, i) => (
@@ -123,7 +164,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             </div>
 
             <div className='word-list' style={{ width: `${screenWidth * 0.1}px` }}>
-                <h2 className='fs-4 word-list-header'>Suggested words</h2>
+                <h2 className='fs-7 word-list-header'>Suggested guesses</h2>
                 <ul className='list-group'>
                     {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
                     {hasWords && suggestedWords.map((word, i) => (
