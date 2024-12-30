@@ -17,6 +17,13 @@
     border: 1px solid blue;
 }
 
+.top-menu-border {
+    position: absolute;
+    top: 74px;
+    width: 100vw;
+    border-bottom: 1px solid var(--select-grey);
+}
+
 .main-container {
     display: grid;
     grid-template-columns: 1fr fit-content(100%) 1fr;
@@ -28,7 +35,6 @@
     margin: 0 auto;
     min-height: min-content;
     min-width: min-content;
-    border: 1px solid red;
 }
 
 .error-box {

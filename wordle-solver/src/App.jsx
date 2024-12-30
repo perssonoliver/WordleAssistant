@@ -436,13 +436,14 @@ function App() {
 
   return (
     <>
+      <div className='top-menu-border'></div>
       <div className='main-container'>
 
-        <div className='empty-col'></div>
+        <div></div>
         <Menu reset={reset} displayHelp={displayHelp} />
-        <div className='empty-col'></div>
+        <div></div>
 
-        <div className='empty-col'></div>
+        <div></div>
         <MainGrid 
           row={row} 
           setColor={setColor} 
@@ -458,9 +459,9 @@ function App() {
           screenWidth={screenWidth} 
         />
 
-        <div className='empty-col'></div>
+        <div></div>
         <Keyboard handleKeyPress={handleKeyPress} screenWidth={screenWidth} />
-        <div className='empty-col'></div>
+        <div></div>
 
       </div>
 
