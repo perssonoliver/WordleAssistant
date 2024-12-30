@@ -5,6 +5,7 @@
     padding-bottom: 2rem;
     text-align: center;
     background-color: var(--bg-black);
+    color: var(--bg-black);
 
     --bg-black: rgb(18, 18, 18);
     --select-grey: rgb(59, 59, 59);
