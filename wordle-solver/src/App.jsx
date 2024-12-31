@@ -436,7 +436,6 @@ function App() {
 
   return (
     <>
-      <div className='top-menu-border'></div>
       <div className='main-container'>
 
         <div></div>

@@ -149,7 +149,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
     return (
         <div className='word-list-container'>
             <div className='word-list' style={{ width: `${screenWidth * 0.1}px` }}>
-                <h2 className='fs-7 word-list-header'>Possible words</h2>
+                <h2 className='word-list-header'>Possible words</h2>
                 <ul className='list-group'>
                     {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
                     {hasWords && wordList.map((word, i) => (
@@ -164,7 +164,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             </div>
 
             <div className='word-list' style={{ width: `${screenWidth * 0.1}px` }}>
-                <h2 className='fs-7 word-list-header'>Suggested guesses</h2>
+                <h2 className='word-list-header'>Suggested guesses</h2>
                 <ul className='list-group'>
                     {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
                     {hasWords && suggestedWords.map((word, i) => (

@@ -5,6 +5,7 @@
     height: 100%;
     display: flex;
     gap: 24px;
+    border: 1px solid yellow;
 }
 
 .word-list {
@@ -15,6 +16,7 @@
 
 .word-list-header {
     color: white;
+    font-size: 20px;
 }
 
 .list-group {
@@ -25,6 +27,7 @@
     background-color: var(--bg-black);
     color: white;
     border-color: var(--select-grey);
+    font-size: 14px;
 }
 
 /* Custom scrollbar for WebKit-based browsers */

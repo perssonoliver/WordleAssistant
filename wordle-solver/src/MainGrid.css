@@ -1,13 +1,13 @@
 .main-grid {
     grid-row: 2;
     grid-column: 2;
-    width: 33.33%;
     max-height: fit-content;
     margin: 0 auto;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(5, 1fr);
     gap: 6px;
+    border: 1px solid blue;
 }
 
 .main-grid input {
@@ -15,7 +15,7 @@
     height: 100%;
     text-align: center;
     border: 2px solid var(--select-grey);
-    font-size: 3em;
+    font-size: 1em;
     font-weight: bold;
     caret-color: transparent;
     cursor: pointer;
