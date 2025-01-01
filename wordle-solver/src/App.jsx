@@ -6,6 +6,7 @@ import MainGrid from './MainGrid'
 import WordList from './WordList'
 import Menu from './Menu'
 import HelpScreen from './HelpScreen'
+import { use } from 'react'
 
 const GREY_SELECTED = 'rgb(95, 95, 95)'
 const BLACK   = 'rgb(59, 59, 59)'
@@ -38,9 +39,10 @@ function App() {
   const [showHelp, setShowHelp]         = useState(false)
   const [showError, setShowError]       = useState(false)
   const colRef = useRef(col)
+  const rowRef = useRef(row)
 
   function reset() {
-    for (let i = Math.min(row, 5); i >= 0; i--) {
+    for (let i = Math.min(rowRef.current, 5); i >= 0; i--) {
       for (let j = 0; j < 5; j++) {
         const box = document.getElementById(`col${i}${j}`)
         box.value = ''
@@ -73,7 +75,7 @@ function App() {
 
   function rowColored() {
     for (let i = 0; i < 5; i++) {
-      const box = document.getElementById(`col${row}${i}`)
+      const box = document.getElementById(`col${rowRef.current}${i}`)
       const color = box.style.backgroundColor
       if (color === '') {
         return false
@@ -83,12 +85,12 @@ function App() {
   }
 
   function fillWord(word) {
-    if (row == 6) {
+    if (rowRef.current == 6) {
       return
     }
     
     for (let i = 0; i < 5; i++) {
-      const box = document.getElementById(`col${row}${i}`)
+      const box = document.getElementById(`col${rowRef.current}${i}`)
       box.value = word[i]
       box.style.backgroundColor = ''
       box.style.borderColor = GREY_SELECTED
@@ -112,10 +114,10 @@ function App() {
     if (id === 'key_DEL' || event.key === 'Backspace')
       return handleBackspace();
   
-    if (colRef.current == 5 || row == 6)
+    if (colRef.current == 5 || rowRef.current == 6)
       return;
 
-    let box = document.getElementById(`col${row}${colRef.current}`)
+    let box = document.getElementById(`col${rowRef.current}${colRef.current}`)
     let newValue = !id ? event.key.toUpperCase() : id[4]
     if (!ALPHABET.includes(newValue)) {
       return
@@ -127,7 +129,7 @@ function App() {
   }
 
   function handleEnterPress() {
-    if (row == 6)
+    if (rowRef.current == 6)
       return;
 
     if (colRef.current != 5 || !rowColored()) {
@@ -150,7 +152,7 @@ function App() {
     if (colRef.current == 0) 
       return;
 
-    let box = document.getElementById(`col${row}${colRef.current - 1}`)
+    let box = document.getElementById(`col${rowRef.current}${colRef.current - 1}`)
     box.value = ''
     box.style.backgroundColor = ''
     box.style.borderColor = BLACK
@@ -162,7 +164,7 @@ function App() {
   function updateWordList() {
     const rowLetters = {}
     for (let i = 0; i < 5; i++) {
-      const box = document.getElementById(`col${row}${i}`)
+      const box = document.getElementById(`col${rowRef.current}${i}`)
       rowLetters[i] = {
         letter: box.value,
         color: box.style.backgroundColor
@@ -176,14 +178,14 @@ function App() {
       switch (currColor) {
         case GREEN:
           // Assign (only) green letter to the column
-          for (let j = row; j < 6; j++) {
+          for (let j = rowRef.current; j < 6; j++) {
             validLetters[j][i] = currLetter
           }
           break;
         case YELLOW:
           // Remove yellow letter from the column
-          for (let j = row; j < 6; j++) {
-            validLetters[j][i] = validLetters[row][i].replace(currLetter, '')
+          for (let j = rowRef.current; j < 6; j++) {
+            validLetters[j][i] = validLetters[rowRef.current][i].replace(currLetter, '')
           }
           break;
         case BLACK:
@@ -207,12 +209,12 @@ function App() {
 
           if (yellowExists) {
             // Only remove black letter from the current column
-            for (let j = row; j < 6; j++) {
+            for (let j = rowRef.current; j < 6; j++) {
               validLetters[j][i] = validLetters[j][i].replace(currLetter, '')
             }
           } else if (greenExists) {
             // Remove black letter from all columns except green ones
-            for (let j = row; j < 6; j++) {
+            for (let j = rowRef.current; j < 6; j++) {
               for (let k = 0; k < 5; k++) {
                 if (greenIndexes.includes(k)) {
                   continue
@@ -222,7 +224,7 @@ function App() {
             }
           } else {
             // Remove black letter from all columns
-            for (let j = row; j < 6; j++) {
+            for (let j = rowRef.current; j < 6; j++) {
               for (let k = 0; k < 5; k++) {
                 validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
               }
@@ -233,7 +235,7 @@ function App() {
     }
     updateFrequencies(rowLetters)
     filterWordList()
-    setWordList(wordLists[row + 1])
+    setWordList(wordLists[rowRef.current + 1])
   }
 
   function updateFrequencies(rowLetters) {
@@ -310,7 +312,7 @@ function App() {
       const newAtMost = 5 - totalAtLeast + currAtLeast
       let validPositions = 0
       for (let i = 0; i < 5; i++) {
-        if (validLetters[row][i].includes(currLetter)) {
+        if (validLetters[rowRef.current][i].includes(currLetter)) {
           validPositions++
         }
       }
@@ -322,9 +324,9 @@ function App() {
 
   function filterWordList() {
     let newWords = []
-    newWords = wordLists[row].filter(word => {
+    newWords = wordLists[rowRef.current].filter(word => {
       for (let i = 0; i < 5; i++) {
-        if (!validLetters[row][i].includes(word[i])) {
+        if (!validLetters[rowRef.current][i].includes(word[i])) {
           return false
         }
       } 
@@ -341,7 +343,7 @@ function App() {
       }
       return true
     });
-    wordLists[row + 1] = newWords
+    wordLists[rowRef.current + 1] = newWords
   }
 
   function containsAtLeast(word, letter, atLeast) {
@@ -387,6 +389,10 @@ function App() {
   }, [col]);
 
   useEffect(() => {
+    rowRef.current = row;
+  }, [row]);
+
+  useEffect(() => {
     wordLists[0] = dict
   }, []);
 
@@ -405,7 +411,7 @@ function App() {
 
         <div></div>
         <MainGrid 
-          row={row} 
+          row={rowRef.current} 
           setColor={setColor} 
           screenWidth={screenWidth} 
         />
@@ -414,7 +420,7 @@ function App() {
           validLetters={validLetters}
           validLetterFrequencies={letterFrequencies}
           fillWord={fillWord} 
-          row={row} 
+          row={rowRef.current} 
           screenWidth={screenWidth} 
         />
 
