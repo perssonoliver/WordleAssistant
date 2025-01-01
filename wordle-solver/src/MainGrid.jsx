@@ -1,7 +1,7 @@
 import React from 'react'
 import './MainGrid.css'
 
-function MainGrid({ row, setColor, screenWidth, handleKeyPress }) {
+function MainGrid({ row, setColor, screenWidth }) {
 
   function setColorHandler(event) {
     const letter = event.target.value
@@ -24,7 +24,6 @@ function MainGrid({ row, setColor, screenWidth, handleKeyPress }) {
               key={`col${i}${j}`}
               id={`col${i}${j}`}
               onClick={setColorHandler}
-              onKeyDown={handleKeyPress}
               autoComplete='off'>
             </input>
           ))

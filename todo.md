@@ -8,7 +8,6 @@ TODO:
 
 BUGS: 
     - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
-    - exiting the help screen does not refocus the current box (maybe put a listener on the whole body to read a key instead of having listeners on each tile? would also remove focus issues)
     - minimizing window sometimes make background grey color when scrolling
 
 NOTES: 

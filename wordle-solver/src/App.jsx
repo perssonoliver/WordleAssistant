@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import dict from './dict.mjs'
 import Keyboard from './Keyboard'
@@ -37,7 +37,7 @@ function App() {
   const [wordList, setWordList]         = useState([])
   const [showHelp, setShowHelp]         = useState(false)
   const [showError, setShowError]       = useState(false)
-  const [currentBox, setCurrentBox]     = useState(null)
+  const colRef = useRef(col)
 
   function reset() {
     for (let i = Math.min(row, 5); i >= 0; i--) {
@@ -55,9 +55,6 @@ function App() {
     wordLists[0] = dict
     letterFrequencies = {}
     validLetters = initLetters()
-    const box = document.getElementById('col00')
-    box.focus()
-    setCurrentBox(box)
   }
 
   function setColor(target) {
@@ -95,60 +92,45 @@ function App() {
       box.value = word[i]
       box.style.backgroundColor = ''
       box.style.borderColor = GREY_SELECTED
-      box.blur()
     }
     setCol(5)
-    const nextBox = document.getElementById(`col${row}4`)
-    nextBox.focus()
-    setCurrentBox(nextBox)
   }
   
   function handleKeyPress(event) {
-    const id = event.target.id === '' ? event.currentTarget.id : event.target.id
+    if (showHelp) 
+      return;
 
     if (!event.key?.includes('F') || event.key?.length === 1) {
       event.preventDefault()
     }
-  
+
+    let id = event.target.id === '' ? event.currentTarget.id : event.target.id
+
     if (id === 'key_ENTER' || event.key === 'Enter')
       return handleEnterPress();
   
     if (id === 'key_DEL' || event.key === 'Backspace')
       return handleBackspace();
   
-    if (col == 5 || row == 6)
+    if (colRef.current == 5 || row == 6)
       return;
 
-    let box;
-    let newValue;
-
-    if (id.includes('col')) {
-      box = document.getElementById(`col${row}${col}`)
-      newValue = event.key.toUpperCase()
-      if (!ALPHABET.includes(newValue)) {
-        return
-      }
-    } else {
-      box = document.getElementById(`col${row}${col}`)
-      newValue = id[4]
+    let box = document.getElementById(`col${row}${colRef.current}`)
+    let newValue = !id ? event.key.toUpperCase() : id[4]
+    if (!ALPHABET.includes(newValue)) {
+      return
     }
 
     box.value = newValue
     box.style.borderColor = GREY_SELECTED
-    if (col < 4) {
-      box.blur()
-      const nextBox = document.getElementById(`col${row}${col + 1}`)
-      nextBox.focus()
-      setCurrentBox(nextBox)
-    }
-    setCol(col + 1)
+    setCol(prevCol => prevCol + 1)
   }
 
   function handleEnterPress() {
     if (row == 6)
       return;
 
-    if (col != 5 || !rowColored()) {
+    if (colRef.current != 5 || !rowColored()) {
       setShowError(true)
       setTimeout(() => {
         document.querySelector('.error-box').classList.add('hidden')
@@ -160,27 +142,20 @@ function App() {
     }
 
     updateWordList()
-    if (row < 5) {
-      const nextBox = document.getElementById(`col${row + 1}${0}`)
-      nextBox.focus()
-      setCurrentBox(nextBox)
-    }
-    setRow(row + 1)
+    setRow(prevRow => prevRow + 1)
     setCol(0)
   }
 
   function handleBackspace() {
-    if (col == 0) 
+    if (colRef.current == 0) 
       return;
 
-    let box = document.getElementById(`col${row}${col - 1}`)
-    box.focus()
-    setCurrentBox(box)
+    let box = document.getElementById(`col${row}${colRef.current - 1}`)
     box.value = ''
     box.style.backgroundColor = ''
     box.style.borderColor = BLACK
-    if (col > 0) {
-      setCol(col - 1)
+    if (colRef.current > 0) {
+      setCol(prevCol => prevCol - 1)
     }
   }
 
@@ -256,10 +231,7 @@ function App() {
           break;
       }
     }
-    console.log(validLetters)
     updateFrequencies(rowLetters)
-    console.log(letterFrequencies)
-
     filterWordList()
     setWordList(wordLists[row + 1])
   }
@@ -401,29 +373,18 @@ function App() {
     setTimeout(() => {
       setShowHelp(false)
     }, 150);
-    setCurrentBox(currentBox)
   }
 
   useEffect(() => {
-    const firstInput = document.getElementById('col00');
-    if (firstInput) {
-      firstInput.focus()
-      setCurrentBox(firstInput)
-    }
-  }, []);
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress); 
+    };
+  }, [showHelp]);
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (currentBox && !event.target.closest('.main-grid')) {
-        currentBox.focus()
-      }
-    }
-
-    document.addEventListener('click', handleClickOutside)
-    return () => {
-      document.removeEventListener('click', handleClickOutside)
-    };
-  }, [currentBox]);
+    colRef.current = col;
+  }, [col]);
 
   useEffect(() => {
     wordLists[0] = dict
@@ -447,7 +408,6 @@ function App() {
           row={row} 
           setColor={setColor} 
           screenWidth={screenWidth} 
-          handleKeyPress={handleKeyPress} 
         />
         <WordList 
           wordList={wordList} 
