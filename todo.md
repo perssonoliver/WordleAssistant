@@ -5,12 +5,12 @@ TODO:
     - add tips for valid words (most frequent letter, most common position of yellow letter etc)
     - make website adaptable for mobile devices
     - window size should have a minimum width
+    - convert input boxes into labels instead (needs some logical reworks)
 
 BUGS: 
     - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
     - minimizing window sometimes make background grey color when scrolling
     - after submitting a word, key listener does no longer respond until pressing the window again
-    - key listener does not work after selecting an input box (maybe make a label?)
     - pressing enter too fast might not update the color in time (which reads a wrong color)
 
 NOTES: 
