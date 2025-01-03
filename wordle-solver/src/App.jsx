@@ -414,9 +414,9 @@ function App() {
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener('keydown', handleKeyPress)
     return () => {
-      window.removeEventListener('keydown', handleKeyPress); 
+      window.removeEventListener('keydown', handleKeyPress)
     };
   }, [showHelp]);
 
@@ -434,9 +434,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const secondRowHeight = `${screenWidth * 0.2 * 1.25}px`;
-    document.documentElement.style.setProperty('--second-row-height', secondRowHeight);
+    const secondRowHeight = `${screenWidth * 0.2 * 1.25}px`
+    document.documentElement.style.setProperty('--second-row-height', secondRowHeight)
   }, [screenWidth]);
+
+  useEffect(() => {
+    if (showInfo) {
+      document.querySelector('.error-box').classList.add('show')
+      document.querySelector('.error-box').classList.remove('hidden')
+    }
+  }, [showInfo]);
 
   return (
     <>
@@ -468,7 +475,7 @@ function App() {
       </div>
 
       {showHelp && <HelpScreen onClose={closeHelp} screenWidth={screenWidth} />}
-      {showInfo && <div className={`error-box ${showInfo ? '' : 'hidden'}`}>
+      {showInfo && <div className={`error-box ${showInfo ? 'show' : 'hidden'}`}>
         {status}
       </div>}
     </>
