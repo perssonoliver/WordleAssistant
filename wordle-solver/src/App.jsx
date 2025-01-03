@@ -54,6 +54,7 @@ function App() {
         box.style.borderColor = BLACK
       }
     }
+    document.getElementById(`col00`).style.borderColor = GREY_SELECTED
     setWordList([])
     setRow(0)
     setCol(0)
@@ -160,6 +161,10 @@ function App() {
     }
 
     updateWordList()
+    if (rowRef.current < 5) {
+      const nextBox = document.getElementById(`col${rowRef.current + 1}${0}`)
+      nextBox.style.borderColor = GREY_SELECTED
+    }
     setRow(prevRow => prevRow + 1)
     setCol(0)
   }
@@ -169,11 +174,15 @@ function App() {
       return;
 
     let box = document.getElementById(`col${rowRef.current}${colRef.current - 1}`)
+    console.log('box that is being backspaced', box)
     box.textContent = ''
     box.style.backgroundColor = ''
-    box.style.borderColor = BLACK
-    if (colRef.current > 0) {
-      setCol(prevCol => prevCol - 1)
+    console.log('colref.current', colRef.current)
+    setCol(prevCol => prevCol - 1)
+    if (colRef.current > 1) {
+      box.style.borderColor = BLACK
+    } else {
+      box.style.borderColor = GREY_SELECTED
     }
   }
 
@@ -421,6 +430,7 @@ function App() {
 
   useEffect(() => {
     wordLists[0] = dict
+    document.getElementById(`col00`).style.borderColor = GREY_SELECTED
   }, []);
 
   useEffect(() => {
