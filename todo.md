@@ -6,6 +6,7 @@ TODO:
     - make website adaptable for mobile devices
     - window size should have a minimum width
     - convert input boxes into labels instead (needs some logical reworks)
+    - create animation upon submitting word
 
 BUGS: 
     - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
@@ -15,3 +16,4 @@ BUGS:
 
 NOTES: 
     - inspector tools can be used to inspect CSS layouts (https://firefox-source-docs.mozilla.org/devtools-user/page_inspector/how_to/examine_grid_layouts/index.html)
+    - for design inspiration: see real wordle as well as ordel (and football games)
