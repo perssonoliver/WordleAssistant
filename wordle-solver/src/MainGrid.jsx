@@ -4,10 +4,10 @@ import './MainGrid.css'
 function MainGrid({ row, setColor, screenWidth }) {
 
   function setColorHandler(event) {
-    const letter = event.target.value
+    const letter = event.target.textContent
     const currRow = event.target.id[3]
 
-    if (letter === '' || currRow < row) {
+    if (letter === '' || currRow != row) {
       return
     }
 
@@ -18,14 +18,13 @@ function MainGrid({ row, setColor, screenWidth }) {
     <div className='main-grid' style={{ width: `${screenWidth * 0.2}px` }}>
         {[...Array(6)].map((_, i) => (
           [...Array(5)].map((_, j) => (
-            <input 
-              type='text'
+            <label 
               maxLength='1'
               key={`col${i}${j}`}
               id={`col${i}${j}`}
               onClick={setColorHandler}
               autoComplete='off'>
-            </input>
+            </label>
           ))
       ))}
     </div>

@@ -7,23 +7,27 @@
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(5, 1fr);
     gap: 6px;
+    font-size: 26px;
 }
 
-.main-grid input {
+.main-grid label {
     width: 100%;
     height: 100%;
-    text-align: center;
+    color: white;
     border: 2px solid var(--select-grey);
     font-size: 1em;
     font-weight: bold;
     caret-color: transparent;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.main-grid input:focus {
+.main-grid label:focus {
     outline: none;
 }
 
-.main-grid input::selection {
+.main-grid label::selection {
     background-color: transparent;
 }

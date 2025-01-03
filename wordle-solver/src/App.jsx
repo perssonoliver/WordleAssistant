@@ -49,7 +49,7 @@ function App() {
     for (let i = Math.min(rowRef.current, 5); i >= 0; i--) {
       for (let j = 0; j < 5; j++) {
         const box = document.getElementById(`col${i}${j}`)
-        box.value = ''
+        box.textContent = ''
         box.style.backgroundColor = ''
         box.style.borderColor = BLACK
       }
@@ -106,7 +106,7 @@ function App() {
     
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
-      box.value = word[i]
+      box.textContent = word[i]
       box.style.backgroundColor = ''
       box.style.borderColor = GREY_SELECTED
     }
@@ -138,7 +138,7 @@ function App() {
       return
     }
 
-    box.value = newValue
+    box.textContent = newValue
     box.style.borderColor = GREY_SELECTED
     setCol(prevCol => prevCol + 1)
   }
@@ -169,7 +169,7 @@ function App() {
       return;
 
     let box = document.getElementById(`col${rowRef.current}${colRef.current - 1}`)
-    box.value = ''
+    box.textContent = ''
     box.style.backgroundColor = ''
     box.style.borderColor = BLACK
     if (colRef.current > 0) {
@@ -182,7 +182,7 @@ function App() {
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
       rowLetters[i] = {
-        letter: box.value,
+        letter: box.textContent,
         color: box.style.backgroundColor
       }
     }

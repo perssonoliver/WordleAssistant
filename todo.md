@@ -5,7 +5,6 @@ TODO:
     - add tips for valid words (most frequent letter, most common position of yellow letter etc)
     - make website adaptable for mobile devices
     - window size should have a minimum width
-    - convert input boxes into labels instead (needs some logical reworks)
     - create animation upon submitting word
 
 BUGS: 
