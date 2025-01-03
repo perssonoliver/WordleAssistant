@@ -14,6 +14,9 @@ const YELLOW  = 'rgb(181, 159, 59)'
 const GREEN   = 'rgb(83, 141, 78)'
 const COLORS  = [BLACK, YELLOW, GREEN]
 
+const ENTER_ERROR_MSG = 'All tiles must be filled.'
+const SUCCESS_MSG = 'Great job!'
+
 const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 let wordLists = []
 let letterFrequencies = {}
@@ -37,7 +40,8 @@ function App() {
   const [col, setCol]                   = useState(0)
   const [wordList, setWordList]         = useState([])
   const [showHelp, setShowHelp]         = useState(false)
-  const [showError, setShowError]       = useState(false)
+  const [showInfo, setShowInfo]         = useState(false)
+  const [status, setStatus]             = useState(ENTER_ERROR_MSG)
   const colRef = useRef(col)
   const rowRef = useRef(row)
 
@@ -78,6 +82,17 @@ function App() {
       const box = document.getElementById(`col${rowRef.current}${i}`)
       const color = box.style.backgroundColor
       if (color === '') {
+        return false
+      }
+    }
+    return true
+  }
+
+  function rowCorrect() {
+    for (let i = 0; i < 5; i++) {
+      const box = document.getElementById(`col${rowRef.current}${i}`)
+      const color = box.style.backgroundColor
+      if (color !== GREEN) {
         return false
       }
     }
@@ -133,13 +148,14 @@ function App() {
       return;
 
     if (colRef.current != 5 || !rowColored()) {
-      setShowError(true)
-      setTimeout(() => {
-        document.querySelector('.error-box').classList.add('hidden')
-        setTimeout(() => {
-          setShowError(false)
-        }, 200);
-      }, 1500);
+      displayInfo(ENTER_ERROR_MSG)
+      return
+    }
+
+    if (rowCorrect()) {
+      setRow(6)
+      setWordList([])
+      displayInfo(SUCCESS_MSG)
       return
     }
 
@@ -366,6 +382,17 @@ function App() {
     return count <= atMost
   }
 
+  function displayInfo(msg) {
+    setStatus(msg)
+    setShowInfo(true)
+    setTimeout(() => {
+      document.querySelector('.error-box').classList.add('hidden')
+      setTimeout(() => {
+        setShowInfo(false)
+      }, 200);
+    }, 1500);
+  }
+
   function displayHelp() {
     setShowHelp(true)
   }
@@ -431,8 +458,8 @@ function App() {
       </div>
 
       {showHelp && <HelpScreen onClose={closeHelp} screenWidth={screenWidth} />}
-      {showError && <div className={`error-box ${showError ? '' : 'hidden'}`}>
-        All tiles must be filled.
+      {showInfo && <div className={`error-box ${showInfo ? '' : 'hidden'}`}>
+        {status}
       </div>}
     </>
   );
