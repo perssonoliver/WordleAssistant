@@ -1,7 +1,7 @@
 .word-list-container {
     grid-row: 2;
     grid-column: 3;
-    min-width: 33.33%;
+    min-width: fit-content;
     height: 100%;
     display: flex;
     gap: 24px;

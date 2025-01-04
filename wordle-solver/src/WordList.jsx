@@ -147,7 +147,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
     }
 
     return (
-        <div className='word-list-container'>
+        <div className='word-list-container' style={{ minWidth: `${screenWidth * 0.14}px` }}>
             <div className='word-list' style={{ width: `${screenWidth * 0.1}px` }}>
                 <h2 className='word-list-header'>Possible words</h2>
                 <ul className='list-group'>

@@ -6,7 +6,6 @@ import MainGrid from './MainGrid'
 import WordList from './WordList'
 import Menu from './Menu'
 import HelpScreen from './HelpScreen'
-import { use } from 'react'
 
 const GREY_SELECTED = 'rgb(95, 95, 95)'
 const BLACK   = 'rgb(59, 59, 59)'
@@ -447,11 +446,11 @@ function App() {
 
   return (
     <>
-      <div className='main-container'>
+      <div className='main-container' style={{ minWidth: `${screenWidth * 0.44}px` }}>
 
-        <div></div>
+        <div className='top-menu-border'></div>
         <Menu reset={reset} displayHelp={displayHelp} />
-        <div></div>
+        <div className='top-menu-border'></div>
 
         <div></div>
         <MainGrid 
