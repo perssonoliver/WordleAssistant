@@ -10,7 +10,6 @@ TODO:
 BUGS: 
     - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
     - pressing enter too fast might not update the color in time (which reads a wrong color)
-    - the content is overflowing the size of body (minimize window and scroll to the right to see red background)
 
 NOTES: 
     - inspector tools can be used to inspect CSS layouts (https://firefox-source-docs.mozilla.org/devtools-user/page_inspector/how_to/examine_grid_layouts/index.html)
