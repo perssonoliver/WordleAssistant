@@ -35,7 +35,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                     score += letterFrequencies[letter]
                     visitedLetters.push(letter)
                 } else {
-                    score += (letterFrequencies[letter] / 2)
+                    score += 0.15
                 }
                 if (yellowLetterIndexFrequencies[letter]) {
                     score += yellowLetterIndexFrequencies[letter][i] / 5
