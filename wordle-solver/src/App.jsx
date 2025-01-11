@@ -173,10 +173,8 @@ function App() {
       return;
 
     let box = document.getElementById(`col${rowRef.current}${colRef.current - 1}`)
-    console.log('box that is being backspaced', box)
     box.textContent = ''
     box.style.backgroundColor = ''
-    console.log('colref.current', colRef.current)
     setCol(prevCol => prevCol - 1)
     if (colRef.current > 1) {
       box.style.borderColor = BLACK
