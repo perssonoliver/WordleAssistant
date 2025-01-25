@@ -151,7 +151,10 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
                 <h2 className='word-list-header'>Possible words</h2>
                 <ul className='list-group'>
-                    {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
+                    {!hasWords && 
+                    <li className='list-group-item default-list-item'>
+                        <option disabled>--No suggestions--</option>
+                    </li>}
                     {hasWords && wordList.map((word, i) => (
                         <li 
                             className='list-group-item word-item' 
@@ -166,7 +169,10 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
                 <h2 className='word-list-header'>Suggested guesses</h2>
                 <ul className='list-group'>
-                    {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
+                    {!hasWords && 
+                    <li className='list-group-item default-list-item'>
+                        <option disabled>--No suggestions--</option>
+                    </li>}
                     {hasWords && suggestedWords.map((word, i) => (
                         <li 
                             className='list-group-item word-item' 
