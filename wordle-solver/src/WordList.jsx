@@ -148,7 +148,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
 
     return (
         <div className='word-list-container' style={{ minWidth: `${screenWidth * 0.14}px` }}>
-            <div className='word-list' style={{ width: `${screenWidth * 0.1}px` }}>
+            <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
                 <h2 className='word-list-header'>Possible words</h2>
                 <ul className='list-group'>
                     {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}
@@ -163,7 +163,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                 </ul>
             </div>
 
-            <div className='word-list' style={{ width: `${screenWidth * 0.1}px` }}>
+            <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
                 <h2 className='word-list-header'>Suggested guesses</h2>
                 <ul className='list-group'>
                     {!hasWords && <li className='list-group-item default-list-item'>--No suggestions--</li>}

@@ -15,7 +15,7 @@ function MainGrid({ row, setColor, screenWidth }) {
   }
 
   return (
-    <div className='main-grid' style={{ width: `${screenWidth * 0.2}px` }}>
+    <div className='main-grid' style={{ width: screenWidth < 500 ? '100%' : `${screenWidth * 0.2}px` }}>
         {[...Array(6)].map((_, i) => (
           [...Array(5)].map((_, j) => (
             <label 

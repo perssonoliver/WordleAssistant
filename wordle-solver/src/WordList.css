@@ -1,10 +1,24 @@
 .word-list-container {
-    grid-row: 2;
-    grid-column: 3;
     min-width: fit-content;
     height: 100%;
     display: flex;
     gap: 24px;
+}
+
+@media (width >= 500px) {
+    .word-list-container {
+        grid-row: 2;
+        grid-column: 3;
+    }
+}
+
+@media (width < 500px) {
+    .word-list-container {
+        flex-grow: 1;
+        padding-left: 12px;
+        padding-right: 12px;
+        overflow-y: auto;
+    }
 }
 
 .word-list {
@@ -15,7 +29,18 @@
 
 .word-list-header {
     color: white;
-    font-size: 20px;
+}
+
+@media (width >= 500px) {
+    .word-list-header {
+        font-size: 20px;
+    }
+}
+
+@media (width < 500px) {
+    .word-list-header {
+        font-size: 17px;
+    }
 }
 
 .list-group {
