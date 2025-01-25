@@ -6,6 +6,7 @@ TODO:
     - window size should have a minimum width
     - create animation upon submitting word
     - fix help display for mobile devices
+    - refreshing page should save the previous state
 
 BUGS: 
     - Uncaught TypeError: Cannot read properties of null (reading 'classList') (happens sometimes when pressing enter when whole row is not filled (might be wrong, investigate further))
