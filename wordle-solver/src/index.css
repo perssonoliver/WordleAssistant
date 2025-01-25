@@ -27,7 +27,8 @@ body {
   place-items: center;
   min-width: 100vw;
   min-height: 100dvh;
-  overflow: hidden;
+  overscroll-behavior: auto;
+  overflow-y: auto;
   background-color: var(--bg-black) !important;
 }
 
