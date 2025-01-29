@@ -178,17 +178,19 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                     <h2 className='word-list-header'>{title}</h2>
                     <ul className='list-group'>
                         {!hasWords && 
-                            <li className='list-group-item default-list-item'>
+                            <li className='list-group-item default-list-item' style={{ fontSize: '14px' }}>
                                 <option disabled>--No suggestions--</option>
                             </li>
                         }
                         {hasWords &&
                             <>
-                                <li className='list-group-item default-list-item' >
-                                    <option onClick={() => {
-                                        document.getElementById(`listModal${nbr}`).style.display = "flex"}
-                                    }>Show words</option>
-                                </li>
+                                <li 
+                                    className='list-group-item default-list-item' 
+                                    style={{ fontSize: '14px' }}
+                                    onClick={() => {
+                                        document.getElementById(`listModal${nbr}`).style.display = "flex"
+                                    }}
+                                >Show words</li>
                                 <div 
                                     id={`listModal${nbr}`}
                                     className="modal"

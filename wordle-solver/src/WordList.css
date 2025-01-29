@@ -51,7 +51,25 @@
     background-color: var(--bg-black);
     color: white;
     border-color: var(--select-grey);
-    font-size: 14px;
+}
+
+@media (width >= 500px) {
+    .list-group li {
+        font-size: 14px;
+    }
+    .list-group li:hover {
+        background-color: var(--select-grey);
+    }
+}
+
+@media (width < 500px) {
+    .list-group li {
+        font-size: 22px;
+    }
+}
+
+.list-group li:active {
+    background-color: var(--select-grey);
 }
 
 /* Custom scrollbar for WebKit-based browsers */
@@ -85,19 +103,16 @@
     user-select: none;
 }
 
-/* Hide modal by default */
 .modal {
-    display: none; /* Hidden initially */
+    display: none;
     position: fixed;
     top: 0;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: auto !important;
 }
 
-/* Modal content (pop-up list) */
 .modal-content {
     background-color: var(--bg-black) !important;
     padding: 20px;
@@ -106,5 +121,4 @@
     max-height: 80% !important;
     text-align: center;
     overflow: auto !important;
-    z-index: 5 !important;
 }
