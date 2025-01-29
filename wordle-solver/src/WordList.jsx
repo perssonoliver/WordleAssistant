@@ -183,10 +183,16 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                             </li>
                         }
                         {hasWords &&
-                            <>
+                            <div className='list-with-modal'>
                                 <li 
                                     className='list-group-item default-list-item' 
-                                    style={{ fontSize: '14px' }}
+                                    style={{ 
+                                        fontSize: '14px',
+                                        borderTopLeftRadius: '6px',
+                                        borderTopRightRadius: '6px',
+                                        borderBottomLeftRadius: '6px',
+                                        borderBottomRightRadius: '6px'
+                                    }}
                                     onClick={() => {
                                         document.getElementById(`listModal${nbr}`).style.display = "flex"
                                     }}
@@ -209,7 +215,8 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                                         ))}
                                     </div>
                                 </div>
-                            </>
+                            </div>
+                            
                         }
                     </ul>
                 </div>

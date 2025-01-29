@@ -95,7 +95,6 @@
 .default-list-item {
     cursor: unset;
     user-select: none;
-    border: 1px solid green;
 }
 
 .word-item {
@@ -121,4 +120,15 @@
     max-height: 80% !important;
     text-align: center;
     overflow: auto !important;
+}
+
+.list-with-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.test {
+    height: 10px;
+    border: 1px solid green;
 }
