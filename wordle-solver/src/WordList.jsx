@@ -9,6 +9,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
     const hasWords = wordList.length > 0
 
     function wordHandler(event) {
+        console.log('wordHandler: ', event.target.innerText)
         fillWord(event.target.innerText)
     }
 
@@ -71,7 +72,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
             }
         }
         console.log('sorted scores: ', Object.fromEntries(Object.entries(scores).sort((a, b) => b[1] - a[1])))
-        setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 8))
+        setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 10))
     }
 
     function getLetterFrequencies() {
@@ -146,43 +147,81 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
         return unusedLetters
     }
 
-    return (
-        <div className='word-list-container' style={{ minWidth: `${screenWidth * 0.14}px` }}>
+    function BigScreenWordList({ title, wordList }) {
+        return (
             <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
-                <h2 className='word-list-header'>Possible words</h2>
+                <h2 className='word-list-header'>{title}</h2>
                 <ul className='list-group'>
                     {!hasWords && 
-                    <li className='list-group-item default-list-item'>
-                        <option disabled>--No suggestions--</option>
-                    </li>}
+                        <li className='list-group-item default-list-item'>
+                            <option disabled>--No suggestions--</option>
+                        </li>
+                    }
                     {hasWords && wordList.map((word, i) => (
                         <li 
                             className='list-group-item word-item' 
                             key={`word${i}`} 
-                            onDoubleClick={wordHandler}>
-                            {word}
-                        </li>
+                            onDoubleClick={wordHandler}
+                        >{word}</li>
                     ))}
                 </ul>
             </div>
+        );
+    }
 
-            <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
-                <h2 className='word-list-header'>Suggested guesses</h2>
-                <ul className='list-group'>
-                    {!hasWords && 
-                    <li className='list-group-item default-list-item'>
-                        <option disabled>--No suggestions--</option>
-                    </li>}
-                    {hasWords && suggestedWords.map((word, i) => (
-                        <li 
-                            className='list-group-item word-item' 
-                            key={`word${i}`} 
-                            onDoubleClick={wordHandler}>
-                            {word}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+    function SmallScreenWordList({ title, wordList, nbr }) {
+        return (
+            <>
+                <div className='word-list' style={{ 
+                    width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px`
+                }}>
+                    <h2 className='word-list-header'>{title}</h2>
+                    <ul className='list-group'>
+                        {!hasWords && 
+                            <li className='list-group-item default-list-item'>
+                                <option disabled>--No suggestions--</option>
+                            </li>
+                        }
+                        {hasWords &&
+                            <>
+                                <li className='list-group-item default-list-item' >
+                                    <option onClick={() => {
+                                        document.getElementById(`listModal${nbr}`).style.display = "flex"}
+                                    }>Show words</option>
+                                </li>
+                                <div 
+                                    id={`listModal${nbr}`}
+                                    className="modal"
+                                    onClick={() => document.getElementById(`listModal${nbr}`).style.display = "none"}
+                                >
+                                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                                        {wordList.map((word, i) => (
+                                            <li 
+                                                className='list-group-item word-item' 
+                                                key={`word${i}`} 
+                                                onClick={(event) => (
+                                                    wordHandler(event), 
+                                                    document.getElementById(`listModal${nbr}`).style.display = "none"
+                                                )}
+                                            >{word}</li>
+                                        ))}
+                                    </div>
+                                </div>
+                            </>
+                        }
+                    </ul>
+                </div>
+            </>
+        )
+    }
+
+    return (
+        <div className='word-list-container' style={{ minWidth: `${screenWidth * 0.14}px` }}>
+            {screenWidth >= 500 && <BigScreenWordList title='Possible words' wordList={wordList} />}
+            {screenWidth >= 500 && <BigScreenWordList title='Suggested guesses' wordList={suggestedWords} />}
+
+            {screenWidth < 500 && <SmallScreenWordList title='Possible words' wordList={wordList} nbr={1} />}
+            {screenWidth < 500 && <SmallScreenWordList title='Suggested guesses' wordList={suggestedWords} nbr={2} />}
         </div>
     );
 }

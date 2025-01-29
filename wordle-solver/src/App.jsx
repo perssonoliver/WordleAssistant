@@ -431,7 +431,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.getElementById('root').style.minWidth = `350px`
+    document.getElementById('root').style.minWidth = '350px'
     const secondRowHeight = `${screenWidth * 0.2 * 1.25}px`
     document.documentElement.style.setProperty('--second-row-height', secondRowHeight)
   }, [screenWidth]);

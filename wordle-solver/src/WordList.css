@@ -75,11 +75,36 @@
 }
 
 .default-list-item {
-    cursor:unset;
+    cursor: unset;
     user-select: none;
+    border: 1px solid green;
 }
 
 .word-item {
     cursor: pointer;
     user-select: none;
+}
+
+/* Hide modal by default */
+.modal {
+    display: none; /* Hidden initially */
+    position: fixed;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto !important;
+}
+
+/* Modal content (pop-up list) */
+.modal-content {
+    background-color: var(--bg-black) !important;
+    padding: 20px;
+    border-radius: 10px;
+    width: 70% !important;
+    max-height: 80% !important;
+    text-align: center;
+    overflow: auto !important;
+    z-index: 5 !important;
 }
