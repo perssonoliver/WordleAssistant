@@ -5,7 +5,6 @@ TODO:
     - add tips for valid words (most frequent letter, most common position of yellow letter etc)
     - window size should have a minimum width
     - create animation upon submitting word
-    - fix help display for mobile devices
     - refreshing page should save the previous state
 
 BUGS: 
