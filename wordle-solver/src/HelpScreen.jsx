@@ -19,11 +19,11 @@ function HelpScreen({ onClose, screenWidth }) {
                     <li>Modify the color of the character tile by pressing it, so that it matches 
                         the color from Wordle.</li>
                     <li>When all five characters are colored, press Enter to display a list of possible 
-                        valid words.</li>
+                        valid words and a list of suggested words you can guess to narrow down the options.</li>
                 </ul>
                 <p className='help-header fs-5'>Other tips</p>
                 <ul className='help-list'>
-                    <li>Double click a word from the word list to quick apply it.</li>
+                    <li>Select a word from the word list to quick apply it.</li>
                     <li>Reset the tiles by pressing the reset button in the top menu.</li>
                 </ul>
             </div>
