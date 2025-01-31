@@ -63,10 +63,21 @@ function App() {
     validLetters = initLetters()
   }
 
+  function setColorHandler(event) {
+    const letter = event.target.textContent
+    const currRow = event.target.id[3]
+
+    if (letter === '' || currRow != row) {
+        return
+    }
+
+    setColor(event.target)
+}
+
   function setColor(target) {
     const color = target.style.backgroundColor
 
-    let newColor;
+    let newColor
     if (color === '') {
       newColor = COLORS[0]
     } else {
@@ -140,10 +151,11 @@ function App() {
 
     box.textContent = newValue
     box.style.borderColor = GREY_SELECTED
+    box.classList.add('pop-animation')
     setCol(prevCol => prevCol + 1)
   }
 
-  function handleEnterPress() {
+  async function handleEnterPress() {
     if (rowRef.current == 6)
       return;
 
@@ -159,6 +171,12 @@ function App() {
       return
     }
 
+    for (let i = 0; i < 5; i++) {
+      const box = document.getElementById(`col${rowRef.current}${i}`)
+      box.classList.add('mega-pop-animation')
+      await new Promise(resolve => setTimeout(resolve, 200))
+    }
+
     updateWordList()
     if (rowRef.current < 5) {
       const nextBox = document.getElementById(`col${rowRef.current + 1}${0}`)
@@ -166,6 +184,8 @@ function App() {
     }
     setRow(prevRow => prevRow + 1)
     setCol(0)
+
+    console.log('row should be updated: ', rowRef.current)
   }
 
   function handleBackspace() {
@@ -452,11 +472,7 @@ function App() {
         <div className='top-menu-border'></div>
 
         <div></div>
-        <MainGrid 
-          row={rowRef.current} 
-          setColor={setColor} 
-          screenWidth={screenWidth} 
-        />
+        <MainGrid setColorHandler={setColorHandler} screenWidth={screenWidth} />
         <WordList 
           wordList={wordList} 
           validLetters={validLetters}
