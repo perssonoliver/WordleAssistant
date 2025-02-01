@@ -26,15 +26,14 @@
 
 .main-grid label {
     width: 100%;
-    color: white;
     border: 2px solid var(--select-grey);
-    font-size: 1em;
-    font-weight: bold;
-    caret-color: transparent;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 200px;
 }
 
 @media (width >= 500px) {
@@ -49,12 +48,33 @@
     }
 }
 
-.main-grid label:focus {
+.letter-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    caret-color: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.letter-content:focus {
     outline: none;
 }
 
-.main-grid label::selection {
+.letter-content::selection {
     background-color: transparent;
+}
+
+.pop-animation {
+    animation: pop 0.1s ease-in-out forwards;
+}
+
+.mega-pop-animation {
+    animation: rotate 1.5s ease-in-out;
 }
 
 @keyframes pop {
@@ -63,16 +83,7 @@
     100% { transform: scale(1); }
 }
 
-.pop-animation {
-    animation: pop 0.1s ease-in-out forwards;
-}
-
 @keyframes rotate {
     from { transform: rotateX(0deg); }
     to { transform: rotateX(360deg); }
-}
-
-.mega-pop-animation {
-    animation: pop 0.1s ease-in-out forwards,
-               rotate 1s ease-in-out;
 }

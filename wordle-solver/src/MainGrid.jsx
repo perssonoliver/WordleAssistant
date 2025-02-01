@@ -12,12 +12,14 @@ function MainGrid({ setColorHandler, screenWidth }) {
               {[...Array(6)].map((_, i) => (
                   [...Array(5)].map((_, j) => (
                       <label 
-                          maxLength='1'
-                          key={`col${i}${j}`}
-                          id={`col${i}${j}`}
-                          onClick={setColorHandler}
-                          onAnimationEnd={handleAnimationEnd}
-                          autoComplete='off'>
+                            maxLength='1'
+                            key={`col${i}${j}`}
+                            id={`col${i}${j}`}
+                            onClick={setColorHandler}
+                            onAnimationEnd={handleAnimationEnd}
+                            autoComplete='off'
+                        >
+                            <span className="letter-content" id={`col${i}${j}letter`}></span>
                       </label>
                   ))
             ))}

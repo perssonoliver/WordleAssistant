@@ -48,7 +48,8 @@ function App() {
     for (let i = Math.min(rowRef.current, 5); i >= 0; i--) {
       for (let j = 0; j < 5; j++) {
         const box = document.getElementById(`col${i}${j}`)
-        box.textContent = ''
+        const letter = document.getElementById(`col${i}${j}letter`)
+        letter.textContent = ''
         box.style.backgroundColor = ''
         box.style.borderColor = BLACK
       }
@@ -64,17 +65,21 @@ function App() {
   }
 
   function setColorHandler(event) {
-    const letter = event.target.textContent
-    const currRow = event.target.id[3]
+    const span = event.target
+    const label = span.parentElement
+    const letter = span.textContent
+    const currRow = label.id[3]
+    console.log('letter: ', letter)
 
     if (letter === '' || currRow != row) {
         return
     }
 
-    setColor(event.target)
+    setColor(label)
 }
 
   function setColor(target) {
+    console.log('target: ', target)
     const color = target.style.backgroundColor
 
     let newColor
@@ -92,6 +97,7 @@ function App() {
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
       const color = box.style.backgroundColor
+      console.log('color: ', color)
       if (color === '') {
         return false
       }
@@ -117,7 +123,8 @@ function App() {
     
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
-      box.textContent = word[i]
+      const letter = document.getElementById(`col${i}${j}letter`)
+        letter.textContent = word[i]
       box.style.backgroundColor = ''
       box.style.borderColor = GREY_SELECTED
     }
@@ -149,7 +156,8 @@ function App() {
       return
     }
 
-    box.textContent = newValue
+    const letter = document.getElementById(`col${rowRef.current}${colRef.current}letter`)
+    letter.textContent = newValue
     box.style.borderColor = GREY_SELECTED
     box.classList.add('pop-animation')
     setCol(prevCol => prevCol + 1)
@@ -173,11 +181,15 @@ function App() {
 
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
+
       box.classList.add('mega-pop-animation')
-      await new Promise(resolve => setTimeout(resolve, 200))
+      await new Promise(resolve => setTimeout(resolve, 50))
     }
 
+    // make sure that wordlist updates during animation, but that the program waits after that 
+
     updateWordList()
+    // should wait here
     if (rowRef.current < 5) {
       const nextBox = document.getElementById(`col${rowRef.current + 1}${0}`)
       nextBox.style.borderColor = GREY_SELECTED
@@ -193,7 +205,8 @@ function App() {
       return;
 
     let box = document.getElementById(`col${rowRef.current}${colRef.current - 1}`)
-    box.textContent = ''
+    const letter = document.getElementById(`col${rowRef.current}${colRef.current - 1}letter`)
+    letter.textContent = ''
     box.style.backgroundColor = ''
     setCol(prevCol => prevCol - 1)
     if (colRef.current > 1) {
@@ -207,8 +220,9 @@ function App() {
     const rowLetters = {}
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
+      const letter = document.getElementById(`col${rowRef.current}${i}letter`)
       rowLetters[i] = {
-        letter: box.textContent,
+        letter: letter.textContent,
         color: box.style.backgroundColor
       }
     }

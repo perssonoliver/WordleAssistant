@@ -11,6 +11,7 @@ BUGS:
     - pressing enter too fast might not update the color in time (which reads a wrong color)
     - if error box is triggered too quickly in succession, it behaves weirdly
     - help screen should visualize everything at once (including exit image)
+    - if pressing enter before animation stops, it skips a row (confirm)
 
 NOTES: 
     - inspector tools can be used to inspect CSS layouts (https://firefox-source-docs.mozilla.org/devtools-user/page_inspector/how_to/examine_grid_layouts/index.html)
