@@ -69,7 +69,6 @@ function App() {
     const label = span.parentElement
     const letter = span.textContent
     const currRow = label.id[3]
-    console.log('letter: ', letter)
 
     if (letter === '' || currRow != row) {
         return
@@ -79,7 +78,6 @@ function App() {
 }
 
   function setColor(target) {
-    console.log('target: ', target)
     const color = target.style.backgroundColor
 
     let newColor
@@ -97,7 +95,6 @@ function App() {
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
       const color = box.style.backgroundColor
-      console.log('color: ', color)
       if (color === '') {
         return false
       }
@@ -123,8 +120,8 @@ function App() {
     
     for (let i = 0; i < 5; i++) {
       const box = document.getElementById(`col${rowRef.current}${i}`)
-      const letter = document.getElementById(`col${i}${j}letter`)
-        letter.textContent = word[i]
+      const letter = document.getElementById(`col${rowRef.current}${i}letter`)
+      letter.textContent = word[i]
       box.style.backgroundColor = ''
       box.style.borderColor = GREY_SELECTED
     }
@@ -164,8 +161,7 @@ function App() {
   }
 
   async function handleEnterPress() {
-    if (rowRef.current == 6)
-      return;
+    if (rowRef.current == 6) return
 
     if (colRef.current != 5 || !rowColored()) {
       displayInfo(ENTER_ERROR_MSG)
@@ -179,25 +175,40 @@ function App() {
       return
     }
 
-    for (let i = 0; i < 5; i++) {
-      const box = document.getElementById(`col${rowRef.current}${i}`)
-
-      box.classList.add('mega-pop-animation')
-      await new Promise(resolve => setTimeout(resolve, 50))
-    }
-
-    // make sure that wordlist updates during animation, but that the program waits after that 
-
-    updateWordList()
-    // should wait here
-    if (rowRef.current < 5) {
-      const nextBox = document.getElementById(`col${rowRef.current + 1}${0}`)
-      nextBox.style.borderColor = GREY_SELECTED
-    }
+    const currentRow = rowRef.current
     setRow(prevRow => prevRow + 1)
     setCol(0)
 
-    console.log('row should be updated: ', rowRef.current)
+    const animateBox = async (index) => {
+      const box = document.getElementById(`col${currentRow}${index}`)
+      box.classList.add('mega-pop-animation')
+      await new Promise(resolve => setTimeout(resolve, 50))
+    }
+    
+    const animation_duration = 1500
+    const animationPromise = (async () => {
+      for (let i = 0; i < 5; i++) {
+        await animateBox(i)
+      }
+      await new Promise(resolve => setTimeout(resolve, animation_duration))
+    })()
+
+
+    const wordListPromise = new Promise(resolve => {
+      updateWordList(currentRow)
+      resolve()
+    })
+
+    console.log('Waiting for animations to finish...')
+    await Promise.all([animationPromise, wordListPromise])
+    console.log('Animations finished!')
+
+    if (currentRow < 5) {
+      const nextBox = document.getElementById(`col${currentRow + 1}${0}`)
+      nextBox.style.borderColor = GREY_SELECTED
+    }
+
+    setWordList(wordLists[currentRow + 1])
   }
 
   function handleBackspace() {
@@ -216,11 +227,11 @@ function App() {
     }
   }
 
-  function updateWordList() {
+  function updateWordList(row) {
     const rowLetters = {}
     for (let i = 0; i < 5; i++) {
-      const box = document.getElementById(`col${rowRef.current}${i}`)
-      const letter = document.getElementById(`col${rowRef.current}${i}letter`)
+      const box = document.getElementById(`col${row}${i}`)
+      const letter = document.getElementById(`col${row}${i}letter`)
       rowLetters[i] = {
         letter: letter.textContent,
         color: box.style.backgroundColor
@@ -234,14 +245,14 @@ function App() {
       switch (currColor) {
         case GREEN:
           // Assign (only) green letter to the column
-          for (let j = rowRef.current; j < 6; j++) {
+          for (let j = row; j < 6; j++) {
             validLetters[j][i] = currLetter
           }
           break;
         case YELLOW:
           // Remove yellow letter from the column
-          for (let j = rowRef.current; j < 6; j++) {
-            validLetters[j][i] = validLetters[rowRef.current][i].replace(currLetter, '')
+          for (let j = row; j < 6; j++) {
+            validLetters[j][i] = validLetters[row][i].replace(currLetter, '')
           }
           break;
         case BLACK:
@@ -265,12 +276,12 @@ function App() {
 
           if (yellowExists) {
             // Only remove black letter from the current column
-            for (let j = rowRef.current; j < 6; j++) {
+            for (let j = row; j < 6; j++) {
               validLetters[j][i] = validLetters[j][i].replace(currLetter, '')
             }
           } else if (greenExists) {
             // Remove black letter from all columns except green ones
-            for (let j = rowRef.current; j < 6; j++) {
+            for (let j = row; j < 6; j++) {
               for (let k = 0; k < 5; k++) {
                 if (greenIndexes.includes(k)) {
                   continue
@@ -280,7 +291,7 @@ function App() {
             }
           } else {
             // Remove black letter from all columns
-            for (let j = rowRef.current; j < 6; j++) {
+            for (let j = row; j < 6; j++) {
               for (let k = 0; k < 5; k++) {
                 validLetters[j][k] = validLetters[j][k].replace(currLetter, '')
               }
@@ -289,12 +300,11 @@ function App() {
           break;
       }
     }
-    updateFrequencies(rowLetters)
-    filterWordList()
-    setWordList(wordLists[rowRef.current + 1])
+    updateFrequencies(row, rowLetters)
+    filterWordList(row)
   }
 
-  function updateFrequencies(rowLetters) {
+  function updateFrequencies(row, rowLetters) {
     let duplicates = []
     let temp = []
 
@@ -368,7 +378,7 @@ function App() {
       const newAtMost = 5 - totalAtLeast + currAtLeast
       let validPositions = 0
       for (let i = 0; i < 5; i++) {
-        if (validLetters[rowRef.current][i].includes(currLetter)) {
+        if (validLetters[row][i].includes(currLetter)) {
           validPositions++
         }
       }
@@ -378,11 +388,11 @@ function App() {
     }
   }
 
-  function filterWordList() {
+  function filterWordList(row) {
     let newWords = []
-    newWords = wordLists[rowRef.current].filter(word => {
+    newWords = wordLists[row].filter(word => {
       for (let i = 0; i < 5; i++) {
-        if (!validLetters[rowRef.current][i].includes(word[i])) {
+        if (!validLetters[row][i].includes(word[i])) {
           return false
         }
       } 
@@ -399,7 +409,7 @@ function App() {
       }
       return true
     });
-    wordLists[rowRef.current + 1] = newWords
+    wordLists[row + 1] = newWords
   }
 
   function containsAtLeast(word, letter, atLeast) {

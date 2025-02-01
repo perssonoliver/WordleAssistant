@@ -6,7 +6,7 @@ const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, row, screenWidth }) {
     const [suggestedWords, setSuggestedWords] = useState([])
-    const hasWords = wordList.length > 0
+    const hasWords = wordList == null || wordList.length > 0
 
     function wordHandler(event) {
         console.log('wordHandler: ', event.target.innerText)
@@ -18,6 +18,8 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
     }, [wordList]);
 
     function updateScores() {
+        if (!wordList) return
+        
         let letterFrequencies = getLetterFrequencies()
         console.log('letterFrequencies: ', letterFrequencies)
         let yellowLetterIndexFrequencies = getYellowLetterIndexFrequencies()
@@ -226,11 +228,11 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
 
     return (
         <div className='word-list-container' style={{ minWidth: `${screenWidth * 0.14}px` }}>
-            {screenWidth >= 500 && <BigScreenWordList title='Possible words' wordList={wordList} />}
-            {screenWidth >= 500 && <BigScreenWordList title='Suggested guesses' wordList={suggestedWords} />}
+            {screenWidth >= 500 && wordList && <BigScreenWordList title='Possible words' wordList={wordList} />}
+            {screenWidth >= 500 && wordList && <BigScreenWordList title='Suggested guesses' wordList={suggestedWords} />}
 
-            {screenWidth < 500 && <SmallScreenWordList title='Possible words' wordList={wordList} nbr={1} />}
-            {screenWidth < 500 && <SmallScreenWordList title='Suggested guesses' wordList={suggestedWords} nbr={2} />}
+            {screenWidth < 500 && wordList && <SmallScreenWordList title='Possible words' wordList={wordList} nbr={1} />}
+            {screenWidth < 500 && wordList && <SmallScreenWordList title='Suggested guesses' wordList={suggestedWords} nbr={2} />}
         </div>
     );
 }
