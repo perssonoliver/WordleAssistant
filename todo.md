@@ -1,7 +1,6 @@
 TODO: 
     - add option to reset the latest row 
     - add transition when opening help component
-    - change fonts
     - window size should have a minimum width
     - refreshing page should save the previous state
     - fix layout of delete icon for mobile devices
