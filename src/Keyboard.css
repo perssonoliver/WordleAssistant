@@ -64,5 +64,16 @@
 .del-icon {
     vertical-align: middle;
     width: 50%;
-    height: 65%;
+}
+
+@media (width >= 500px) {
+    .del-icon {
+        height: 62%;
+    }
+}
+
+@media (width < 500px) {
+    .del-icon {
+        height: 52%;
+    }
 }
