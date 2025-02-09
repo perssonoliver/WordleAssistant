@@ -1,1 +1,1 @@
-# WordleSolver.js
+# WordleAssistant
