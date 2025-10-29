@@ -199,9 +199,7 @@ function App() {
       resolve()
     })
 
-    console.log('Waiting for animations to finish...')
     await Promise.all([animationPromise, wordListPromise])
-    console.log('Animations finished!')
 
     if (currentRow < 5) {
       const nextBox = document.getElementById(`col${currentRow + 1}${0}`)

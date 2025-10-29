@@ -9,7 +9,6 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
     const hasWords = wordList == null || wordList.length > 0
 
     function wordHandler(event) {
-        console.log('wordHandler: ', event.target.innerText)
         fillWord(event.target.innerText)
     }
 
@@ -21,10 +20,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
         if (!wordList) return
         
         let letterFrequencies = getLetterFrequencies()
-        console.log('letterFrequencies: ', letterFrequencies)
         let yellowLetterIndexFrequencies = getYellowLetterIndexFrequencies()
-        console.log('valid letters in row: ', validLetters[row])
-        console.log('yellowLetterIndexFrequencies: ', yellowLetterIndexFrequencies)
         
         let scores = {}
         for (const i in wordList) {
@@ -73,7 +69,6 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
                 }
             }
         }
-        console.log('sorted scores: ', Object.fromEntries(Object.entries(scores).sort((a, b) => b[1] - a[1])))
         setSuggestedWords(Object.keys(scores).sort((a, b) => scores[b] - scores[a]).slice(0, 10))
     }
 
@@ -151,7 +146,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
 
     function BigScreenWordList({ title, wordList }) {
         return (
-            <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
+            <div className='word-list' style={{ width: '50 %' }}>
                 <h2 className='word-list-header'>{title}</h2>
                 <ul className='list-group'>
                     {!hasWords && 
@@ -175,7 +170,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
         return (
             <>
                 <div className='word-list' style={{ 
-                    width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px`
+                    width: '50%'
                 }}>
                     <h2 className='word-list-header'>{title}</h2>
                     <ul className='list-group'>

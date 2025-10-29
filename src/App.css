@@ -24,23 +24,11 @@
     box-sizing: border-box;
 }
 
-@media (width >= 500px) {
-    .main-container {
-        display: grid;
-        grid-template-columns: 1fr fit-content(100%) 1fr;
-        grid-template-rows: fit-content(100%) var(--second-row-height, auto) auto;
-        row-gap: 36px;
-        min-height: min-content;
-    }
-}
-
-@media (width < 500px) {
-    .main-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        row-gap: 8px;
-    }
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 8px;
 }
 
 .error-box {
