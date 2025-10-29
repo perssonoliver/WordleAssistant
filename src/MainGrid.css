@@ -8,9 +8,20 @@
     font-size: 26px;
 }
 
-.main-grid {
-    padding-left: 30px;
-    padding-right: 30px;
+@media (width >= 500px) {
+    .main-grid {
+        grid-row: 2;
+        grid-column: 2;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+
+@media (width < 500px) {
+    .main-grid {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
 }
 
 .main-grid label {
@@ -25,8 +36,16 @@
     perspective: 200px;
 }
 
-.main-grid label {
-    height: 7.5vh;
+@media (width >= 500px) {
+    .main-grid label {
+        height: 100%;
+    }
+}
+
+@media (width < 500px) {
+    .main-grid label {
+        height: 7.5vh;
+    }
 }
 
 .letter-content {
