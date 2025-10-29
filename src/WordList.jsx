@@ -146,7 +146,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
 
     function BigScreenWordList({ title, wordList }) {
         return (
-            <div className='word-list' style={{ width: '50 %' }}>
+            <div className='word-list' style={{ width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px` }}>
                 <h2 className='word-list-header'>{title}</h2>
                 <ul className='list-group'>
                     {!hasWords && 
@@ -170,7 +170,7 @@ function WordList({ wordList, validLetters, validLetterFrequencies, fillWord, ro
         return (
             <>
                 <div className='word-list' style={{ 
-                    width: '50%'
+                    width: screenWidth < 500 ? '50%' : `${screenWidth * 0.1}px`
                 }}>
                     <h2 className='word-list-header'>{title}</h2>
                     <ul className='list-group'>

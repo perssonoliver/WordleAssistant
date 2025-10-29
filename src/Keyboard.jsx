@@ -9,9 +9,9 @@ function Keyboard({ handleKeyPress, screenWidth }) {
         <div 
             className='keyboard' 
             style={{ 
-                width: '100%',
-                height: '19vh',
-                minHeight: '19vh'
+                width: screenWidth < 500 ? '100%' : `${screenWidth * 0.3}px`,
+                height: screenWidth < 500 ? '19vh' : `${screenWidth * 0.3 * 0.33}px`,
+                minHeight: screenWidth < 500 ? '19vh' : `${screenWidth * 0.3 * 0.33}px`
             }}
         >
             <div className='key-row'>
